@@ -19,11 +19,10 @@
 - **L2 工作记忆**：工作台。任务状态实时更新；每一个影响方向的用户决策（含日期和原因）记入 `decision-log.md`；临时上下文放 `context-notes.md`。
 - **L3 长期知识库**：只增不改。研究原始材料放 `research/raw/`（按 `NN-主题.md` 编号），成品报告放 `research/reports/`，过期/被取代内容移入 `archive/`。
 - 所有产出使用**中文**；引用外部信息必须附来源 URL。
-- 每次会话结束前：更新 L1/L2，`git commit` 并 `git push -u origin claude/ai-agent-hotel-platform-z5whni`。
+- 每次会话结束前：更新 L1/L2，`git commit`（**仅本地提交**）。
 
 ## 环境约束（重要，新对话务必知晓）
 
 - 本远程环境的网络策略**只允许 WebSearch（搜索引擎）**；WebFetch / curl 抓取任何外部网页都会被代理 403 拦截，不要浪费时间重试。
 - 公司官网 `www.intent-computing.com` 无法直接访问；产品信息以股东提供的描述 + 搜索引擎索引摘要为准（见 L3 `research/raw/00-产品现状.md`）。
-- GitHub 操作使用 MCP 工具（`mcp__github__*`），没有 `gh` CLI。
-- 开发分支固定为 `claude/ai-agent-hotel-platform-z5whni`，不要推送到其他分支。
+- **股东决策（2026-07-24）：不再调用 GitHub**——不推送、不使用 GitHub API/MCP 工具；仓库仅做本地 git 提交（分支 `claude/ai-agent-hotel-platform-z5whni`）。
