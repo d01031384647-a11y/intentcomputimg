@@ -1,0 +1,792 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>叮住集团 · 多品牌战略品牌手册</title>
+
+<style>
+:root{
+  --green:#0E5A4E;
+  --green-dk:#083F36;
+  --green-lt:#1B7A68;
+  --orange:#F5841F;
+  --orange-dk:#D96D0C;
+  --cream:#F7F2E7;
+  --cream-dp:#EDE4D2;
+  --wood:#A67C52;
+  --ink:#1C1C1A;
+  --grey:#6E6E68;
+  --line:rgba(0,0,0,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--ink);background:var(--cream);
+  -webkit-font-smoothing:antialiased;
+  font-feature-settings:"tnum";
+}
+
+/* ---------- deck ---------- */
+.deck{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;scroll-behavior:smooth}
+.slide{
+  min-height:100vh;scroll-snap-align:start;scroll-snap-stop:always;
+  padding:clamp(32px,5vh,72px) clamp(24px,6vw,110px);
+  display:flex;flex-direction:column;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.slide-inner{width:100%;max-width:1240px;margin:0 auto}
+
+/* themes */
+.s-cream{background:var(--cream)}
+.s-white{background:#fff}
+.s-green{background:var(--green);color:var(--cream)}
+.s-green .lead,.s-green .kicker{color:rgba(247,242,231,.72)}
+.s-green h2,.s-green h3{color:var(--cream)}
+.s-deep{background:var(--green-dk);color:var(--cream)}
+
+/* progress + chrome */
+#bar{position:fixed;top:0;left:0;height:3px;background:var(--orange);width:0;z-index:99;transition:width .25s}
+#idx{position:fixed;right:18px;bottom:16px;z-index:99;font-size:12px;letter-spacing:.08em;
+  color:var(--grey);background:rgba(255,255,255,.82);padding:5px 11px;border-radius:20px;
+  border:1px solid var(--line);backdrop-filter:blur(6px)}
+.s-green ~ #idx{color:#fff}
+#hint{position:fixed;left:18px;bottom:16px;z-index:99;font-size:11px;letter-spacing:.06em;
+  color:var(--grey);background:rgba(255,255,255,.82);padding:5px 11px;border-radius:20px;
+  border:1px solid var(--line);backdrop-filter:blur(6px);transition:opacity .6s}
+
+/* ---------- type ---------- */
+.kicker{font-size:clamp(11px,1.05vw,13px);letter-spacing:.22em;color:var(--orange);
+  font-weight:700;margin-bottom:20px;text-transform:uppercase}
+h1{font-size:clamp(38px,6.4vw,84px);line-height:1.08;font-weight:800;letter-spacing:-.015em}
+h2{font-size:clamp(28px,3.9vw,52px);line-height:1.18;font-weight:800;letter-spacing:-.01em;margin-bottom:14px}
+h3{font-size:clamp(18px,2vw,27px);line-height:1.3;font-weight:700;margin-bottom:10px}
+.lead{font-size:clamp(15px,1.5vw,20px);line-height:1.72;color:var(--grey);max-width:78ch}
+.s-white .lead,.s-cream .lead{color:#4A4A44}
+p{font-size:clamp(14px,1.28vw,17px);line-height:1.78}
+strong{font-weight:700}
+em{font-style:normal;color:var(--orange);font-weight:700}
+.s-green em{color:var(--orange)}
+.hr{height:1px;background:var(--line);margin:26px 0}
+.s-green .hr,.s-deep .hr{background:rgba(247,242,231,.2)}
+
+/* chapter divider */
+.chap{display:flex;align-items:baseline;gap:clamp(20px,3vw,48px)}
+.chap .no{font-size:clamp(80px,15vw,190px);font-weight:800;line-height:.82;color:var(--orange);letter-spacing:-.04em}
+.chap .tt h2{font-size:clamp(32px,5vw,64px);margin-bottom:16px}
+.tag{display:inline-block;font-size:12px;letter-spacing:.12em;font-weight:700;
+  border:1.5px solid var(--orange);color:var(--orange);padding:5px 13px;border-radius:20px;margin-bottom:18px}
+
+/* stat strip */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:clamp(14px,2vw,30px);margin-top:38px}
+.stat .n{font-size:clamp(30px,4.4vw,58px);font-weight:800;line-height:1;color:var(--orange);letter-spacing:-.02em}
+.stat .l{font-size:clamp(12px,1.05vw,14px);color:var(--grey);margin-top:9px;line-height:1.5}
+.s-green .stat .l{color:rgba(247,242,231,.7)}
+
+/* cards */
+.grid{display:grid;gap:clamp(12px,1.6vw,22px)}
+.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(185px,1fr))}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:clamp(16px,1.9vw,26px)}
+.s-green .card,.s-deep .card{background:rgba(255,255,255,.07);border-color:rgba(247,242,231,.18)}
+.card .ic{font-size:11px;letter-spacing:.14em;font-weight:800;color:var(--orange);margin-bottom:10px}
+.card h3{font-size:clamp(16px,1.5vw,21px);margin-bottom:8px}
+.card p{font-size:clamp(13px,1.12vw,15px);color:var(--grey);line-height:1.7}
+.s-green .card p{color:rgba(247,242,231,.78)}
+.card.hi{border-color:var(--orange);border-width:2px}
+.card.gr{background:var(--green);color:var(--cream);border-color:var(--green)}
+.card.gr h3{color:var(--cream)} .card.gr p{color:rgba(247,242,231,.82)}
+
+/* table */
+table{width:100%;border-collapse:collapse;font-size:clamp(12px,1.12vw,15.5px)}
+th,td{text-align:left;padding:clamp(8px,1vw,14px) clamp(7px,.9vw,15px);border-bottom:1px solid var(--line);vertical-align:top;line-height:1.6}
+th{font-weight:700;font-size:clamp(11px,1vw,13.5px);letter-spacing:.05em;color:var(--grey);
+  border-bottom:1.5px solid rgba(0,0,0,.28);white-space:nowrap}
+.s-green th,.s-green td{border-color:rgba(247,242,231,.18)}
+.s-green th{color:rgba(247,242,231,.66);border-bottom-color:rgba(247,242,231,.4)}
+td.num{font-weight:700;white-space:nowrap}
+tr.acc td{background:rgba(245,132,31,.09)}
+.s-green tr.acc td{background:rgba(245,132,31,.16)}
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+/* matrix */
+.mx{width:100%;border-collapse:separate;border-spacing:8px;font-size:clamp(12px,1.1vw,15px)}
+.mx td,.mx th{padding:clamp(10px,1.3vw,20px);border-radius:11px;vertical-align:top}
+.mx th{background:transparent;font-size:clamp(11px,1vw,13.5px);color:var(--grey);font-weight:700;line-height:1.5}
+.mx .cell{background:#fff;border:1px solid var(--line)}
+.mx .cell.a{background:var(--green);color:var(--cream);border-color:var(--green)}
+.mx .cell.b{background:var(--orange);color:#fff;border-color:var(--orange)}
+.mx .bn{font-size:clamp(16px,1.75vw,24px);font-weight:800;letter-spacing:-.01em;display:block}
+.mx .en{font-size:11px;letter-spacing:.1em;opacity:.62;display:block;margin-top:3px}
+.mx .pr{font-size:clamp(12px,1.1vw,15px);margin-top:9px;font-weight:700}
+.mx .ds{font-size:11.5px;opacity:.72;margin-top:6px;line-height:1.55}
+.mx .rowh{background:var(--cream-dp);border:1px solid var(--line);font-weight:700;color:var(--ink);font-size:clamp(12px,1.1vw,15px)}
+
+/* misc */
+.note{font-size:clamp(11px,.98vw,13px);color:var(--grey);line-height:1.65;margin-top:16px;
+  padding-left:13px;border-left:2.5px solid var(--orange)}
+.s-green .note{color:rgba(247,242,231,.66)}
+.big-q{font-size:clamp(22px,3.1vw,42px);font-weight:800;line-height:1.34;letter-spacing:-.01em}
+.pill{display:inline-block;background:var(--orange);color:#fff;font-size:12px;font-weight:700;
+  padding:4px 12px;border-radius:20px;letter-spacing:.05em;margin-right:7px;margin-bottom:7px}
+.pill.o{background:transparent;color:var(--orange);border:1.5px solid var(--orange)}
+ul{list-style:none} li{position:relative;padding-left:20px;margin-bottom:11px;line-height:1.72;font-size:clamp(13px,1.2vw,16px)}
+li:before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;border-radius:50%;background:var(--orange)}
+.ol{counter-reset:n} .ol li{padding-left:34px} .ol li:before{
+  counter-increment:n;content:counter(n);width:auto;height:auto;background:none;color:var(--orange);
+  font-weight:800;font-size:.95em;top:0;border-radius:0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3.5vw,60px);align-items:start}
+@media(max-width:820px){.two{grid-template-columns:1fr;gap:24px}.chap{flex-direction:column;gap:8px}}
+
+.logo{display:flex;align-items:center;gap:15px}
+.logo svg{width:clamp(58px,7vw,92px);height:auto}
+.logo .txt .cn{font-size:clamp(22px,2.6vw,34px);font-weight:800;letter-spacing:.06em;line-height:1.1}
+.logo .txt .en{font-size:clamp(11px,1.1vw,14px);letter-spacing:.26em;color:var(--orange);font-weight:700;margin-top:4px}
+
+.ladder{display:flex;gap:0;margin-top:26px;flex-wrap:wrap}
+.ladder .st{flex:1;min-width:135px;background:#fff;border:1px solid var(--line);padding:clamp(13px,1.5vw,20px);position:relative}
+.ladder .st:not(:last-child){border-right:none}
+.ladder .st .n{font-size:11px;letter-spacing:.14em;color:var(--orange);font-weight:800;margin-bottom:7px}
+.ladder .st h3{font-size:clamp(14px,1.35vw,19px);margin-bottom:6px}
+.ladder .st p{font-size:clamp(11.5px,1vw,13.5px);color:var(--grey);line-height:1.6}
+.ladder .st:last-child{background:var(--green);color:var(--cream);border-color:var(--green)}
+.ladder .st:last-child h3{color:var(--cream)} .ladder .st:last-child p{color:rgba(247,242,231,.8)}
+
+.gate{display:grid;gap:10px}
+.gate .row{display:grid;grid-template-columns:auto 1fr auto;gap:clamp(12px,2vw,26px);align-items:center;
+  background:#fff;border:1px solid var(--line);border-radius:12px;padding:clamp(12px,1.5vw,20px)}
+.gate .g{font-size:clamp(13px,1.3vw,17px);font-weight:800;color:var(--orange);white-space:nowrap}
+.gate .c{font-size:clamp(12px,1.1vw,15px);line-height:1.65}
+.gate .o{font-size:clamp(11.5px,1.05vw,14px);font-weight:700;text-align:right;white-space:nowrap;color:var(--green)}
+@media(max-width:760px){.gate .row{grid-template-columns:1fr;gap:7px}.gate .o{text-align:left}}
+
+/* print → PDF */
+@media print{
+  html,body{background:#fff}
+  .deck{height:auto;overflow:visible}
+  .slide{min-height:auto;page-break-after:always;break-after:page;padding:34px 40px}
+  #bar,#idx,#hint{display:none}
+  .s-green,.s-deep{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+@media (prefers-color-scheme:dark){
+  :root{--cream:#F7F2E7} /* deck keeps its own palette in both themes by design */
+}
+</style>
+
+<div id="bar"></div>
+<div id="idx">01</div>
+<div id="hint">← → / 空格 翻页 ｜ Ctrl+P 导出 PDF</div>
+
+<div class="deck" id="deck">
+
+<!-- ===== 00 封面 ===== -->
+<section class="slide s-deep">
+ <div class="slide-inner">
+  <div class="logo" style="margin-bottom:clamp(30px,5vh,60px)">
+    <svg viewBox="0 0 240 108" fill="none" aria-hidden="true">
+      <path d="M20,80 C4,62 12,34 42,28 C60,24 71,33 88,29 C106,24 119,9 141,13 C151,15 157,24 167,22 C181,19 187,5 197,9 C206,13 201,27 194,35 C205,39 215,47 217,59 C220,76 206,90 187,91 L54,93 C36,94 28,88 20,80 Z" fill="#F7F2E7"/>
+      <circle cx="70" cy="72" r="8" fill="#083F36"/><circle cx="97" cy="72" r="8" fill="#083F36"/>
+    </svg>
+    <div class="txt"><div class="cn" style="color:var(--cream)">叮住集团</div><div class="en">TRUEDING GROUP</div></div>
+  </div>
+  <div class="kicker">多品牌战略 · 品牌手册</div>
+  <h1>一套底座<br>五个品牌<br><span style="color:var(--orange)">一门可复制的生意</span></h1>
+  <div class="hr" style="max-width:340px"></div>
+  <p class="lead" style="color:rgba(247,242,231,.74)">2026 年 7 月 ｜ 内部与受控分发 ｜ 面向合作方与投资方</p>
+ </div>
+</section>
+
+<!-- ===== 01 全书导航 ===== -->
+<section class="slide s-cream">
+ <div class="slide-inner">
+  <div class="kicker">Contents</div>
+  <h2>这份手册回答四个问题</h2>
+  <div class="grid g4" style="margin-top:30px">
+    <div class="card"><div class="ic">Ⅰ — Ⅱ</div><h3>为什么该做</h3><p>时代机会、真实的市场需求，以及我们已经用 43 家门店证明了什么。</p></div>
+    <div class="card"><div class="ic">Ⅲ — Ⅳ</div><h3>凭什么能做</h3><p>三个可复用的底座，和建立在它们之上的五个品牌。</p></div>
+    <div class="card"><div class="ic">Ⅴ — Ⅵ</div><h3>怎么不出事</h3><p>品牌之间的四道防火墙，与零驻店的加盟店管控机制。</p></div>
+    <div class="card"><div class="ic">Ⅶ — Ⅸ</div><h3>怎么参与</h3><p>四种合作模式、开店节奏，以及叮住资产运营平台。</p></div>
+  </div>
+  <div class="note">第七章面向合作方，第九章面向投资方，其余章节为共同主线。</div>
+ </div>
+</section>
+
+<!-- ===== 章一 ===== -->
+<section class="slide s-green">
+ <div class="slide-inner"><div class="chap">
+  <div class="no">Ⅰ</div>
+  <div class="tt"><h2>为什么是现在</h2>
+  <p class="lead">机会不在"再造一个便宜的酒店"，而在一场正在发生的资产易主，和一个被长期误读的需求。</p></div>
+ </div></div>
+</section>
+
+<section class="slide s-white">
+ <div class="slide-inner">
+  <div class="kicker">01 · 时代</div>
+  <h2>中国正在经历一场资产大换仓</h2>
+  <div class="two" style="margin-top:26px">
+   <div>
+    <p>过去二十年积累的商业物业正在换主人。旧的持有者退场，新的持有者进场——国资平台、地产基金、家族办公室、产业资本。</p>
+    <p style="margin-top:16px"><strong>但新的资产主人，大多不具备精细化运营的能力。</strong>他们买下的是砖头，缺的是让砖头产生现金流的那套系统。</p>
+    <p style="margin-top:16px">与此同时，大量 2000 年前后建成的宾馆、招待所、写字楼裙房正在空置——它们区位不差，只是产品过时了。</p>
+   </div>
+   <div>
+    <div class="card gr"><h3>我们要做的事</h3>
+    <p>不是去市场上抢租物业做酒店，<br>而是<em>成为那套让存量资产重新产生现金流的系统</em>——用标准化的产品、可控的造价、和一套能远程运转的运营能力，把别人手里的死资产激活。</p></div>
+    <div class="note" style="margin-top:18px">这决定了我们的自我定位：<strong>不是酒店公司，是资产运营商。</strong>酒店只是我们让资产增值的载体。</div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="slide s-cream">
+ <div class="slide-inner">
+  <div class="kicker">02 · 需求</div>
+  <h2>一个被长期误读的需求</h2>
+  <p class="lead">行业默认低价客群"只看价格"。我们做了 1001 份用户问卷，结果正好相反。</p>
+  <div class="two" style="margin-top:34px;align-items:center">
+   <div>
+    <div style="display:flex;align-items:flex-end;gap:clamp(24px,4vw,60px)">
+     <div><div style="font-size:clamp(52px,9vw,116px);font-weight:800;color:var(--orange);line-height:.86;letter-spacing:-.03em">44.6%</div>
+     <div style="font-size:clamp(13px,1.2vw,16px);margin-top:12px;font-weight:700">把「干净卫生」<br>列为决策第一因素</div></div>
+     <div style="padding-bottom:6px"><div style="font-size:clamp(30px,5vw,62px);font-weight:800;color:var(--grey);line-height:.9;letter-spacing:-.02em">14.5%</div>
+     <div style="font-size:clamp(12px,1.05vw,14px);margin-top:10px;color:var(--grey);line-height:1.5">首选<br>「价格」</div></div>
+    </div>
+    <div class="note" style="margin-top:26px">数据来源：叮住集团自有用户问卷，有效样本 1001 份。非第三方调研。</div>
+   </div>
+   <div>
+    <div class="card hi"><h3>由此得出的定位</h3>
+    <p style="font-size:clamp(15px,1.4vw,19px);color:var(--ink);line-height:1.7">我们不做<strong>最便宜的</strong>那一家。<br>我们做<em>同一个价位里最干净的</em>那一家。</p></div>
+    <div class="card" style="margin-top:14px"><h3>还有一个信号</h3>
+    <p>近 <strong style="color:var(--orange);font-size:1.25em">40%</strong> 的现有用户表示，<strong>愿意为更好的体验支付更高的房费</strong>。<br>这就是住大叮存在的理由——转化池已经在店里。</p></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="slide s-white">
+ <div class="slide-inner">
+  <div class="kicker">03 · 客群</div>
+  <h2>谁在住</h2>
+  <div class="stats" style="margin-top:12px">
+   <div class="stat"><div class="n">80%</div><div class="l">34 岁以下<br>其中 49.5% 在 25 岁以下</div></div>
+   <div class="stat"><div class="n">70%+</div><div class="l">大专及以上学历</div></div>
+   <div class="stat"><div class="n">55:45</div><div class="l">男女比例<br>接近均衡</div></div>
+   <div class="stat"><div class="n">30%</div><div class="l">高频出行者<br>年住宿 ≥ 6 次</div></div>
+  </div>
+  <div class="hr"></div>
+  <h3 style="margin-top:8px">出行场景分布</h3>
+  <div class="grid g4" style="margin-top:16px">
+   <div class="card"><div class="ic">50.5%</div><h3>旅游</h3><p>价格敏感，看重位置与干净程度。</p></div>
+   <div class="card"><div class="ic">16.9%</div><h3>商务</h3><p>需要独立空间与办公条件。</p></div>
+   <div class="card"><div class="ic">13.7%</div><h3>学习考试</h3><p>需要安静、能久坐、能写字。</p></div>
+   <div class="card"><div class="ic">18.9%</div><h3>其他</h3><p>探亲、就医、中转、临时居住。</p></div>
+  </div>
+  <div class="note"><strong>商务 + 学习考试合计 30.6%</strong>——这三成客人需要的是一张桌子和一扇能关上的门。这直接决定了住大叮的产品定义：每一间房都配书桌，每一间房都带独立卫浴。</div>
+ </div>
+</section>
+
+<!-- ===== 章二 ===== -->
+<section class="slide s-green">
+ <div class="slide-inner"><div class="chap">
+  <div class="no">Ⅱ</div>
+  <div class="tt"><h2>我们已经证明了什么</h2>
+  <p class="lead">在谈五个品牌之前，先讲清楚第一个品牌跑出了什么，以及哪些还没跑出来。</p></div>
+ </div></div>
+</section>
+
+<section class="slide s-cream">
+ <div class="slide-inner">
+  <div class="kicker">04 · 已验证</div>
+  <h2>住小叮：把 4㎡ 做成一门生意</h2>
+  <p class="lead">摒弃无效公摊，把全部资源聚焦到睡眠与卫生上。共享卫浴、装配式模块、极致密度——单位面积产出是传统经济型酒店的近两倍。</p>
+  <div class="stats">
+   <div class="stat"><div class="n">43</div><div class="l">签约 + 开业门店</div></div>
+   <div class="stat"><div class="n">90%+</div><div class="l">门店平均入住率<br>行业平均为 60–70%</div></div>
+   <div class="stat"><div class="n">30%+</div><div class="l">GOP 利润率</div></div>
+   <div class="stat"><div class="n">4㎡</div><div class="l">起步单间面积<br>独立房间，非铺位</div></div>
+  </div>
+  <div class="note">上述经营数据为品牌自有统计口径。首店于 2024 年 9 月开业，尚无门店走完完整投资回收周期。</div>
+ </div>
+</section>
+
+<section class="slide s-white">
+ <div class="slide-inner">
+  <div class="kicker">05 · 投资口径</div>
+  <h2>我们把成本拆成三层讲</h2>
+  <p class="lead">行业里最常见的纠纷，来自"当初说的投资额"和"实际花的钱"对不上。原因通常不是有人虚报，而是双方说的根本不是同一个口径。所以我们把它拆开。</p>
+  <div class="tbl-wrap" style="margin-top:26px">
+  <table>
+   <tr><th style="width:34%">口径</th><th style="width:26%">100 床标准店</th><th>包含内容</th></tr>
+   <tr><td class="num">① 工程造价</td><td class="num">250 – 280 万<br><span style="font-weight:400;color:var(--grey);font-size:.88em">2.5–2.8 万 / 床</span></td><td>装修改造、物资采购。纯工程口径。</td></tr>
+   <tr class="acc"><td class="num">② 综合投资</td><td class="num">320 – 380 万<br><span style="font-weight:400;color:var(--grey);font-size:.88em">3.2–3.8 万 / 床</span></td><td>① + 消防验收 + 卫生验收 + 开业筹备。<strong>这是加盟商真正需要准备的建设资金。</strong></td></tr>
+   <tr><td class="num">③ 项目总投资</td><td class="num">约 420 万</td><td>② + 品牌相关费用 + 房租押金与运营备用金。</td></tr>
+  </table>
+  </div>
+  <div class="note">以上为住小叮 100 床标准店的测算区间，最终以物业实勘后的一店一算为准。<strong>住大叮的成本模型正在实测中，在真实成本表出具之前，我们不对外发布住大叮的投资额与回收周期。</strong></div>
+ </div>
+</section>
+
+<section class="slide s-deep">
+ <div class="slide-inner">
+  <div class="kicker">06 · 边界</div>
+  <h2>三件已经验证的事，三件还没有</h2>
+  <div class="two" style="margin-top:30px">
+   <div>
+    <div style="font-size:13px;letter-spacing:.14em;font-weight:800;color:var(--orange);margin-bottom:16px">已 验 证</div>
+    <ul>
+     <li><strong>高密度产品是成立的</strong>——4㎡ 独立单间 + 共享卫浴，在北京市场获得了持续 90%+ 的入住率。</li>
+     <li><strong>极简产品有真实需求</strong>——1001 份问卷证明，干净比便宜更重要，且近四成人愿意为体验加价。</li>
+     <li><strong>单店模型可复制</strong>——装配式模块把造价和工期都变成了可预测的量。</li>
+    </ul>
+   </div>
+   <div>
+    <div style="font-size:13px;letter-spacing:.14em;font-weight:800;color:rgba(247,242,231,.55);margin-bottom:16px">尚 未 验 证</div>
+    <ul style="opacity:.88">
+     <li><strong>异地复制</strong>——现有门店集中在北京。上海首店即将开业，这是出京的第一次检验。</li>
+     <li><strong>加盟店的完整周期</strong>——加盟开放时间尚短，还没有一家加盟店走完投资回收周期。</li>
+     <li><strong>向上的价格带</strong>——住大叮已签约 3 家，但样板店尚未开业，产品未经运营验证。</li>
+    </ul>
+   </div>
+  </div>
+  <div class="note" style="border-color:var(--orange)">把没验证的事写在这里，是因为它们决定了后面的开店节奏——<strong>我们不会在前一个品牌跑出数据之前，放量下一个品牌。</strong>具体机制见第八章。</div>
+ </div>
+</section>
+
+<!-- ===== 章三 ===== -->
+<section class="slide s-green">
+ <div class="slide-inner"><div class="chap">
+  <div class="no">Ⅲ</div>
+  <div class="tt"><h2>凭什么做多品牌</h2>
+  <p class="lead">多品牌不是多做几个 Logo。是把同一套底座，铺到不同的房型和物业规模上。</p></div>
+ </div></div>
+</section>
+
+<section class="slide s-white">
+ <div class="slide-inner">
+  <div class="kicker">07 · 底座之一</div>
+  <h2>全自助运营系统</h2>
+  <p class="lead">这是整个多品牌战略的支点。住大叮把它产品化，命名为「<em>全自助酒店 1.0</em>」。</p>
+  <div class="grid g3" style="margin-top:28px">
+   <div class="card"><div class="ic">01</div><h3>自助入住</h3><p>客人不经过人工前台完成全流程办理。</p></div>
+   <div class="card"><div class="ic">02</div><h3>人脸核验</h3><p>满足公安实名登记要求，数据实时回传。</p></div>
+   <div class="card"><div class="ic">03</div><h3>智能门锁</h3><p>与 PMS 系统绑定，凭有效订单发码。</p></div>
+   <div class="card"><div class="ic">04</div><h3>自助洗衣 · 寄存</h3><p>Tap Laundry / Grab Luggage。</p></div>
+   <div class="card"><div class="ic">05</div><h3>自助零售</h3><p>Chill Water / Chill Bites / Chill Bar。</p></div>
+   <div class="card"><div class="ic">06</div><h3>外卖暂存</h3><p>Grab Food，解决高频刚需。</p></div>
+  </div>
+  <div class="note">这套系统在直营店里的价值是<strong>省人力</strong>；在加盟店里的价值完全不同——它是我们<strong>不派驻店人员也能管住一家店</strong>的技术基础。第六章展开。</div>
+ </div>
+</section>
+
+<section class="slide s-cream">
+ <div class="slide-inner">
+  <div class="two">
+   <div>
+    <div class="kicker">08 · 底座之二</div>
+    <h2>装配式模块化工艺</h2>
+    <p class="lead">标准化装配模块把造价、工期和品质同时变成可预测的量。这是"一店一算"能算得准的前提，也是跨城市复制时品质不衰减的保证。</p>
+    <div style="margin-top:22px">
+     <span class="pill o">造价可控</span><span class="pill o">工期可控</span><span class="pill o">品质一致</span><span class="pill o">异地可复制</span>
+    </div>
+   </div>
+   <div>
+    <div class="kicker">09 · 底座之三</div>
+    <h2>存量物业改造能力</h2>
+    <p class="lead">识别哪些老旧物业能改、怎么改、审批怎么走——这是从 43 家门店里长出来的能力，也是最难被复制的一项。</p>
+    <div style="margin-top:22px">
+     <span class="pill o">物业筛选与实勘</span><span class="pill o">消防路径判断</span><span class="pill o">证照办理</span><span class="pill o">竣工验收</span>
+    </div>
+   </div>
+  </div>
+  <div class="hr" style="margin-top:38px"></div>
+  <p class="big-q" style="margin-top:8px">三个底座已经建成。<br>五个品牌，是把它们<em>铺到不同的房型和物业规模上</em>——<br>不是新造能力，是复用能力。</p>
+ </div>
+</section>
+
+<!-- ===== 章四 ===== -->
+<section class="slide s-green">
+ <div class="slide-inner"><div class="chap">
+  <div class="no">Ⅳ</div>
+  <div class="tt"><h2>品牌矩阵</h2>
+  <p class="lead">两个维度，五个位置。对客人分的是房型，对合作方分的是物业规模与运营方式。</p></div>
+ </div></div>
+</section>
+
+<section class="slide s-cream">
+ <div class="slide-inner">
+  <div class="kicker">10 · 总图</div>
+  <h2>五个品牌一张图</h2>
+  <div class="tbl-wrap" style="margin-top:20px">
+  <table class="mx">
+   <tr>
+    <th style="width:15%"></th>
+    <th style="width:42.5%">大物业 · 1000–2000㎡<br><span style="font-weight:400">总部运营</span></th>
+    <th style="width:42.5%">小物业 · 300–500㎡<br><span style="font-weight:400">业主自运营 · 需自持物业</span></th>
+   </tr>
+   <tr>
+    <td class="rowh">6–8㎡<br>带独卫</td>
+    <td class="cell a"><span class="bn">住大叮</span><span class="en">TRUEDING</span><div class="pr">150 – 300 元</div><div class="ds">全自助酒店 1.0。单床房 / 大床房 / 上下铺房，全部带独立卫浴与书桌。</div></td>
+    <td class="cell"><span class="bn">叮舍</span><span class="en">TRUEDING HOUSE</span><div class="pr">130 – 260 元</div><div class="ds">住大叮的服务减配版：无大堂、无公区、全自助。</div></td>
+   </tr>
+   <tr>
+    <td class="rowh">4㎡<br>无独卫</td>
+    <td class="cell b"><span class="bn">住小叮</span><span class="en">TRUEDING GO</span><div class="pr">80 – 150 元</div><div class="ds">已验证的主力。43 家签约与开业，90%+ 入住率。</div></td>
+    <td class="cell"><span class="bn">叮栈</span><span class="en">TRUEDING INN</span><div class="pr">70 – 140 元</div><div class="ds">最低启动门槛。自持物业的业主自运营。</div></td>
+   </tr>
+   <tr>
+    <td class="rowh">存量<br>改造</td>
+    <td class="cell" colspan="2"><span class="bn">叮铺</span><span class="en">TRUEDING RENEW</span><div class="pr">60 – 100 元 ｜ 停业宾馆 · 招待所 · 老旧酒店</div><div class="ds">顺着老宾馆的原有格局做微改造，产品仍是<strong>带独卫的私密单间与双人间</strong>——不做陌生人同房的铺位。改造成本最低，对物业最不挑。</div></td>
+   </tr>
+  </table>
+  </div>
+  <div class="note">英文名为建议方案，待商标检索后定稿。集团与旗舰品牌同名，采用 TrueDing 统一词根。</div>
+ </div>
+</section>
+
+<section class="slide s-white">
+ <div class="slide-inner">
+  <div class="kicker">11 · 旗舰</div>
+  <div class="two" style="align-items:center">
+   <div>
+    <div class="logo" style="margin-bottom:24px">
+     <svg viewBox="0 0 240 108" fill="none" aria-hidden="true">
+      <path d="M20,80 C4,62 12,34 42,28 C60,24 71,33 88,29 C106,24 119,9 141,13 C151,15 157,24 167,22 C181,19 187,5 197,9 C206,13 201,27 194,35 C205,39 215,47 217,59 C220,76 206,90 187,91 L54,93 C36,94 28,88 20,80 Z" fill="#0E5A4E"/>
+      <circle cx="70" cy="72" r="8" fill="#fff"/><circle cx="97" cy="72" r="8" fill="#fff"/>
+     </svg>
+     <div class="txt"><div class="cn" style="color:var(--orange)">住大叮</div><div class="en" style="color:var(--green)">TRUEDING · 我们一起</div></div>
+    </div>
+    <h2>全自助酒店 1.0</h2>
+    <p class="lead">带独立卫浴的极小房间。在最极致的面积里，给到独立卫浴、舒适办公与静谧安睡三件事。</p>
+    <p style="margin-top:18px"><strong>定位：</strong>在连锁经济型酒店进不去的物业里，用它们一半的价格，提供带独卫的独立房间。</p>
+   </div>
+   <div>
+    <div class="tbl-wrap"><table>
+     <tr><th colspan="2">样板店指标</th></tr>
+     <tr><td>建筑面积</td><td class="num">1,530 ㎡</td></tr>
+     <tr><td>房间数</td><td class="num">102 间</td></tr>
+     <tr><td>床位数</td><td class="num">122 床</td></tr>
+     <tr><td>公区面积</td><td class="num">70 ㎡</td></tr>
+     <tr class="acc"><td>价格带</td><td class="num">150 – 300 元</td></tr>
+    </table></div>
+    <div class="note">首批 3 家已签约。样板店位于上海，即将开业。</div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="slide s-cream">
+ <div class="slide-inner">
+  <div class="kicker">12 · 住大叮产品</div>
+  <h2>三类房型，全部带独卫、全部配书桌</h2>
+  <div class="grid g3" style="margin-top:26px">
+   <div class="card"><div class="ic">60% · 62 间</div><h3>单床房</h3>
+    <p style="font-size:clamp(19px,2vw,26px);font-weight:800;color:var(--ink);margin:8px 0">6.0 – 7.3 ㎡</p>
+    <p>1000×2000 床 ｜ 独立卫浴 ｜ 书桌 ｜ 穿衣镜与挂衣区</p></div>
+   <div class="card"><div class="ic">20% · 20 间</div><h3>大床房</h3>
+    <p style="font-size:clamp(19px,2vw,26px);font-weight:800;color:var(--ink);margin:8px 0">7.3 – 7.5 ㎡</p>
+    <p>1400×2000 床 ｜ 独立卫浴 ｜ 书桌</p></div>
+   <div class="card"><div class="ic">20% · 20 间 / 40 床</div><h3>上下铺房</h3>
+    <p style="font-size:clamp(19px,2vw,26px);font-weight:800;color:var(--ink);margin:8px 0">7.3 – 8.1 ㎡</p>
+    <p>双层床 ｜ 独立卫浴 ｜ 折叠书桌<br><strong>独立房间内的双人上下铺，非多人间。</strong></p></div>
+  </div>
+  <div class="note">面积为客房净面积口径（含卫浴）。卫浴含马桶、淋浴、洗手盆。<strong>每一间房都有书桌</strong>——这是为占客群 30.6% 的商务与学习考试场景准备的。</div>
+ </div>
+</section>
+
+<section class="slide s-white">
+ <div class="slide-inner">
+  <div class="kicker">13 · 住大叮公区</div>
+  <h2>70㎡ 公区，八项自助功能</h2>
+  <p class="lead">公区不做无效社交空间，每一平米都对应一个具体需求，且大部分能直接产生收入。</p>
+  <div class="grid g4" style="margin-top:26px">
+   <div class="card"><h3>Chill Water</h3><p>精致补水站</p></div>
+   <div class="card"><h3>Chill Bites</h3><p>多巴胺加油站</p></div>
+   <div class="card"><h3>Chill Bar</h3><p>进击凉地</p></div>
+   <div class="card"><h3>Tap Laundry</h3><p>洗衣自由</p></div>
+   <div class="card"><h3>Grab Luggage</h3><p>甩包潇洒</p></div>
+   <div class="card"><h3>Grab Food</h3><p>外卖领任性</p></div>
+   <div class="card"><h3>自助入住</h3><p>全流程无人办理</p></div>
+   <div class="card"><h3>城市地图墙</h3><p>一城一版本的本地化定制</p></div>
+  </div>
+  <div class="note">Chill 与 Grab 两条命名线已经成型，可直接沿用到集团其他品牌。<strong>这也是新零售收入在门店端的物理载体</strong>——同一批客流、零额外获客成本。</div>
+ </div>
+</section>
+
+<section class="slide s-deep">
+ <div class="slide-inner">
+  <div class="kicker">14 · 组合能力</div>
+  <h2>同物业高低配</h2>
+  <p class="lead" style="font-size:clamp(16px,1.7vw,23px)">在同一栋楼、同一层里，同时布置住小叮与住大叮。<br>这是竞品都不具备的组合能力，也是我们在选址谈判时最有力的筹码。</p>
+  <div class="grid g2" style="margin-top:32px">
+   <div class="card"><h3>对物业持有方</h3><p>一个物业同时吃两个价格带，坪效最大化。也让我们有能力吃下单一品牌吃不下的大面积整层整栋。</p></div>
+   <div class="card"><h3>对合作方</h3><p>一次投资覆盖两个客群，淡旺季与客群波动可以互相对冲，抗风险能力显著高于单一产品门店。</p></div>
+   <div class="card"><h3>对客人</h3><p>同一栋楼里可升可降。住小叮的客人是住大叮成本最低的转化池——近 40% 的人本来就愿意为更好的体验加价。</p></div>
+   <div class="card hi" style="border-color:var(--orange)"><h3>对运营</h3><p>共享公区、共享后勤（布草间、消毒间、新风机房）、共享保洁排班与运营团队。<em>两个品牌的边际运营成本，远低于两家独立门店。</em></p></div>
+  </div>
+ </div>
+</section>
+
+<section class="slide s-cream">
+ <div class="slide-inner">
+  <div class="kicker">15 · 会员</div>
+  <h2>叮住会：把五个品牌连成一个集团</h2>
+  <div class="two" style="margin-top:24px">
+   <div><p>供应链、SOP、工程标准都是<strong>成本端</strong>的协同。真正把五个品牌在<strong>收入端</strong>连起来的，只有一个东西——共用的会员池。</p>
+   <p style="margin-top:16px">一个客人在叮栈住过，下次出差可以被导到住大叮；在住小叮住过，升级时留在体系内而不是流向别家。<strong>五个品牌覆盖 60–300 元的完整价格带，意味着同一个客人在人生不同阶段、不同出行目的下，都有一个我们的产品接得住他。</strong></p></div>
+   <div><div class="card gr"><h3>会员池的三重价值</h3>
+   <p style="margin-top:10px">① <strong>降低获客成本</strong>——减少对 OTA 渠道的依赖<br><br>② <strong>提升复购</strong>——跨品牌互导，把单次交易变成长期关系<br><br>③ <strong>沉淀数据资产</strong>——真实的出行频次与偏好数据，是选址与定价的输入</p></div></div>
+  </div>
+ </div>
+</section>
+
+<!-- ===== 章五 ===== -->
+<section class="slide s-green">
+ <div class="slide-inner"><div class="chap">
+  <div class="no">Ⅴ</div>
+  <div class="tt"><h2>品牌之间怎么不打架</h2>
+  <p class="lead">多品牌最大的风险不是外部竞争，是自己人抢自己人的生意。我们用四道墙把它挡住。</p></div>
+ </div></div>
+</section>
+
+<section class="slide s-white">
+ <div class="slide-inner">
+  <div class="kicker">16 · 四道防火墙</div>
+  <h2>全部做成系统硬约束，不是写进手册的倡议</h2>
+  <div class="grid g2" style="margin-top:26px">
+   <div class="card hi"><div class="ic">墙 一</div><h3>价格墙</h3>
+   <p>每个品牌按城市设价格带上下限，<strong>写进 PMS 做保存校验——越界无法提交</strong>。同城同期，住大叮的最低门市价必须高于住小叮最高价的 1.3 倍，叮舍与叮栈同理下浮。<br><br>门店无权越界，合作方无权越界。</p></div>
+   <div class="card hi"><div class="ic">墙 二</div><h3>渠道墙</h3>
+   <p>OTA 门店账号由集团注册并持有；直销只有叮住会小程序一个入口；PMS 的价格字段对门店只读；<strong>收单账户在集团，门店无现场收款权限</strong>。<br><br>只要钱不先经过门店的手，绕开系统在财务上就无利可图。</p></div>
+   <div class="card"><div class="ic">墙 三</div><h3>区域墙</h3>
+   <p>按品牌授予保护半径：<strong>同品牌保护，跨品牌不保护</strong>，并在签约时明确告知。北京核心区与一般区域分级设定。<br><br>这让合作方清楚知道自己买到的是什么，也让集团的多品牌布局有可预期的空间。</p></div>
+   <div class="card"><div class="ic">墙 四</div><h3>责任墙</h3>
+   <p>五个品牌分设独立运营主体，合作协议的相对方是各品牌公司；各品牌独立投保公众责任险，保额下限写进准入。<br><br><strong>集团背书品牌标准，不背书单店经营行为。</strong></p></div>
+  </div>
+ </div>
+</section>
+
+<!-- ===== 章六 ===== -->
+<section class="slide s-green">
+ <div class="slide-inner"><div class="chap">
+  <div class="no">Ⅵ</div>
+  <div class="tt"><h2>怎么管住每一家店</h2>
+  <p class="lead">这个行业有过一个著名的失败案例。它死于两件事，而我们有它当年没有的东西。</p></div>
+ </div></div>
+</section>
+
+<section class="slide s-cream">
+ <div class="slide-inner">
+  <div class="kicker">17 · 核心机制</div>
+  <h2>同一套设备，两种战略价值</h2>
+  <p class="lead">规模化加盟的两个经典死因是：门店绕开系统私下成交、以及驻店督导团队的成本随门店数线性增长。<strong>这两件事，我们用同一套已经装好的设备解决。</strong></p>
+  <div class="tbl-wrap" style="margin-top:26px">
+  <table>
+   <tr><th style="width:20%">已有能力</th><th style="width:28%">在直营店的用途</th><th>在合作店的价值</th></tr>
+   <tr><td class="num">智能门锁</td><td>省掉发卡收卡</td><td>与 PMS 绑定，<strong>无有效订单不发码</strong>——从物理上杜绝绕开系统的私下成交</td></tr>
+   <tr class="acc"><td class="num">人脸核验</td><td>满足公安实名登记</td><td>真实入住人数实时回传总部，<strong>营收无法瞒报</strong></td></tr>
+   <tr><td class="num">自助入住</td><td>省掉前台人力</td><td>客人不接触门店经营者，<strong>没有截流的机会窗口</strong></td></tr>
+   <tr><td class="num">集团收单</td><td>统一对账</td><td>钱不先经过门店的手，<strong>绕开系统在财务上无利可图</strong></td></tr>
+  </table>
+  </div>
+  <div class="note">结论：<strong>现场运营由合作方承担，渠道、定价与数据由总部垄断。</strong>前者的成本随门店数线性增长，后者的边际成本递减——这正是零驻店模式成立的经济基础。</div>
+ </div>
+</section>
+
+<section class="slide s-white">
+ <div class="slide-inner">
+  <div class="kicker">18 · 品控</div>
+  <h2>渠道即抓手</h2>
+  <p class="lead">总部对合作门店最有效的杠杆不是合同罚则，是流量。罚款要事后追责，而降低渠道曝光是立即生效的。</p>
+  <div class="ladder">
+   <div class="st"><div class="n">STEP 1</div><h3>预警</h3><p>差评率、保洁工时、复购率触发阈值，系统自动提示并生成整改工单。</p></div>
+   <div class="st"><div class="n">STEP 2</div><h3>降权</h3><p>削减该店在集团渠道内的曝光权重。客流立即下降，且不需要任何人到现场。</p></div>
+   <div class="st"><div class="n">STEP 3</div><h3>停止分发</h3><p>暂停向该店分发新订单，保留已有订单履约。</p></div>
+   <div class="st"><div class="n">STEP 4</div><h3>摘牌</h3><p>解除授权，收回品牌标识与全部渠道账号。</p></div>
+  </div>
+  <div class="note">前三级全部由系统自动执行，不需要派人到店，也不需要打官司。<strong>未通过竣工验收的门店，不上线任何渠道。</strong></div>
+ </div>
+</section>
+
+<section class="slide s-deep">
+ <div class="slide-inner">
+  <div class="kicker">19 · 边界</div>
+  <h2>我们不做的三件事</h2>
+  <p class="lead">明确说出不做什么，比列举做什么更能说明一家公司的风险偏好。</p>
+  <div class="grid g3" style="margin-top:34px">
+   <div class="card"><h3>不做收入保底</h3><p>不对合作方作出任何形式的收入保底或投资回报承诺。所有投资测算均为<strong>基于既有门店数据的模型推算</strong>，明确标注口径与假设，不构成收益承诺。<br><br>这既是合规要求，也是因为——承诺保底的一方，最终都是自己在贴钱。</p></div>
+   <div class="card"><h3>不做只挂牌</h3><p>不接受"挂个牌子就算加盟"。<strong>必须按标准完成改造并通过竣工验收，才能上线渠道</strong>。<br><br>品牌的价值来自每一家店都长得一样、干净程度一样。放开这一条，前面所有的努力都会在半年内归零。</p></div>
+   <div class="card"><h3>不做包租二房东</h3><p>不以长约包租的方式持有物业。<br><br>长周期租金在收入下行时是最危险的负债——这个行业过去几年最大的几次失败，几乎都是"高租金长约 + 重投入 + 低房价"三件事叠加的结果。</p></div>
+  </div>
+ </div>
+</section>
+
+<!-- ===== 章七 ===== -->
+<section class="slide s-green">
+ <div class="slide-inner"><div class="chap">
+  <div class="no">Ⅶ</div>
+  <div class="tt"><div class="tag">面向合作方</div><h2>四种参与方式</h2>
+  <p class="lead">有物业没现金、有现金没物业、有区域资源、只想做财务投资——四种情况有四种不同的进入方式。</p></div>
+ </div></div>
+</section>
+
+<section class="slide s-cream">
+ <div class="slide-inner">
+  <div class="kicker">20 · 合作模式</div>
+  <h2>先看你手里有什么</h2>
+  <div class="tbl-wrap" style="margin-top:22px">
+  <table>
+   <tr><th style="width:17%">模式</th><th style="width:24%">适合谁</th><th style="width:21%">你出什么</th><th>我们出什么</th></tr>
+   <tr><td class="num">特许经营加盟</td><td>自有或租赁物业的投资商、创业投资者</td><td>物业 + 建设资金</td><td>品牌授权、产品标准、工程指导与验收、渠道与定价、培训与督导</td></tr>
+   <tr class="acc"><td class="num">物业联营</td><td><strong>有物业但没有建设资金的业主</strong></td><td>物业</td><td><strong>改造资金 + 全部运营体系</strong>。收益按约定分配，改造款从分成中优先回收</td></tr>
+   <tr><td class="num">全委托管理</td><td>纯财务型投资者</td><td>资金</td><td>全程托管运营</td></tr>
+   <tr><td class="num">区域独家代理</td><td>区域资源方</td><td>区域拓展能力</td><td>独家区域拓展权限</td></tr>
+  </table>
+  </div>
+  <div class="note"><strong>物业联营是把门槛降到最低的一条路。</strong>对于手上有闲置物业——空置的楼层、停业的宾馆、闲置的招待所——但拿不出建设资金的业主，这条路让你几乎零现金投入就能让资产重新产生现金流。</div>
+ </div>
+</section>
+
+<section class="slide s-white">
+ <div class="slide-inner">
+  <div class="kicker">21 · 小物业专线</div>
+  <h2>300–500㎡：一条给自持物业业主的路</h2>
+  <div class="two" style="margin-top:24px">
+   <div>
+    <p><strong>叮栈与叮舍只接受自持物业。</strong>这不是偏好，是模型成立的前提。</p>
+    <p style="margin-top:16px">小物业的租金单价通常高于大物业，而总收入更小；同时前台、系统、证照这些固定成本并不随面积缩小。<strong>两头一挤，租赁物业做小店的回收周期反而会比大店更长。</strong></p>
+    <p style="margin-top:16px">但如果物业是自持的——租金这一项归零，业主自己承担现场运营——同一个模型立刻变得非常健康。</p>
+   </div>
+   <div>
+    <div class="tbl-wrap"><table>
+     <tr><th>500㎡ 门店测算对比</th><th>租赁物业</th><th>自持物业</th></tr>
+     <tr><td>租金占收入比</td><td class="num">约 47%</td><td class="num" style="color:var(--orange)">0</td></tr>
+     <tr><td>现场人力</td><td>雇员</td><td>业主自运营</td></tr>
+     <tr class="acc"><td>投资回收</td><td class="num">显著偏长</td><td class="num" style="color:var(--orange)">约 2 年</td></tr>
+    </table></div>
+    <div class="note">为模型推算，用于说明结构差异，非收益承诺。实际以一店一算为准。</div>
+   </div>
+  </div>
+  <div class="note" style="border-color:var(--orange)"><strong>降低的是运营门槛，不是合规门槛。</strong>无论物业多小，特种行业许可证、公共场所卫生许可证、消防合规、住宿实名登记，一条都不会松。而"帮你把证办下来"，恰恰是我们能为小业主提供的最有价值的服务之一。</div>
+ </div>
+</section>
+
+<!-- ===== 章八 ===== -->
+<section class="slide s-green">
+ <div class="slide-inner"><div class="chap">
+  <div class="no">Ⅷ</div>
+  <div class="tt"><h2>按什么顺序开</h2>
+  <p class="lead">五个品牌不会同时放量。每一个都要先用直营跑出数据，才允许对外开放。</p></div>
+ </div></div>
+</section>
+
+<section class="slide s-cream">
+ <div class="slide-inner">
+  <div class="kicker">22 · 准入门票</div>
+  <h2>前一道门没过，后一道不开</h2>
+  <div class="gate" style="margin-top:24px">
+   <div class="row"><div class="g">GATE 0</div><div class="c">住大叮<strong>首店开业并连续运营三个月</strong>，出租率、房价与 GOP 达到设定阈值</div><div class="o">→ 已签 3 家按序开工</div></div>
+   <div class="row"><div class="g">GATE 1</div><div class="c">住大叮 3 家全部开业且达标；<strong>上海首店满三个月达标</strong>（异地复制得到验证）</div><div class="o">→ 住大叮全面招商</div></div>
+   <div class="row"><div class="g">GATE 2</div><div class="c">住大叮累计开业达到规模；<strong>叮铺首店自营满六个月</strong>且无重大管理事故</div><div class="o">→ 叮铺对外开放</div></div>
+   <div class="row"><div class="g">GATE 3</div><div class="c">叮铺跑通低人力模型；<strong>总部收益管理团队到位、PMS 价格硬约束上线、渠道账号全部收归集团</strong></div><div class="o">→ 叮栈 / 叮舍 启动</div></div>
+  </div>
+  <div class="note">GATE 3 的三个前置条件是硬性的：<strong>业主自运营品牌的全部风险都压在总部的渠道管控能力上。这个能力建成之前，这两个品牌一家都不会签。</strong></div>
+ </div>
+</section>
+
+<!-- ===== 章九 ===== -->
+<section class="slide s-green">
+ <div class="slide-inner"><div class="chap">
+  <div class="no">Ⅸ</div>
+  <div class="tt"><div class="tag">面向投资方</div><h2>叮住资产运营</h2>
+  <p class="lead">从一家酒店公司，到一个资产运营平台。</p></div>
+ </div></div>
+</section>
+
+<section class="slide s-white">
+ <div class="slide-inner">
+  <div class="kicker">23 · 平台</div>
+  <h2>我们真正在建的东西</h2>
+  <p class="lead">酒店是载体，不是终点。叮住资产运营管理公司做两件事，且明确不做第三件。</p>
+  <div class="grid g3" style="margin-top:28px">
+   <div class="card gr"><div class="ic">做</div><h3>管理输出</h3><p>向资产持有方输出完整的产品标准、改造方案、运营体系与渠道能力，收取管理费与业绩分成。<br><br><strong>轻资产，边际成本递减，可规模化。</strong></p></div>
+   <div class="card gr"><div class="ic">做</div><h3>资产换股权</h3><p>与大型资产持有方成立合资平台：对方出物业，我们出改造与运营，以股权形式共享资产增值。<br><br><strong>把运营能力变成资产上的权益。</strong></p></div>
+   <div class="card" style="border-style:dashed"><div class="ic" style="color:var(--grey)">不做</div><h3 style="color:var(--grey)">包租二房东</h3><p>不以长约包租的方式持有物业。长周期租金负债在收入下行期会放大所有风险，这条路我们不走。</p></div>
+  </div>
+ </div>
+</section>
+
+<section class="slide s-deep">
+ <div class="slide-inner">
+  <div class="kicker">24 · 路径</div>
+  <h2>三级火箭</h2>
+  <div class="grid g3" style="margin-top:32px">
+   <div class="card"><div class="ic">第一级 · 验证期</div><h3>把单店模型跑实</h3>
+   <p>经营性现金流为正，投资性现金流为负。目标是拿到一套<strong>经得起复核的单店数据</strong>——包括加盟店的完整回收周期，和异地复制的可行性。<br><br><strong>我们现在在这一级，且尚未走完。</strong></p></div>
+   <div class="card"><div class="ic">第二级 · 扩张期</div><h3>把规模铺开</h3>
+   <p>经营与筹资现金流为正，投资性现金流为负。多品牌矩阵全面铺开，与大型资产持有方形成战略合作，管理输出成为独立的收入曲线。</p></div>
+   <div class="card gr"><div class="ic">第三级 · 价值实现期</div><h3>成为现金奶牛</h3>
+   <p>经营性现金流为正，投资与筹资现金流均为负——不再需要外部输血，反过来向股东分配。品牌与运营系统本身成为可定价的资产。</p></div>
+  </div>
+  <div class="note" style="border-color:var(--orange)">我们对自己所处位置的判断是诚实的：<strong>第一级还没有烧完</strong>。没有一家门店走完完整回收周期，加盟开放时间尚短，异地复制刚刚开始。第八章的 Gate 制度，就是为了不让第二级在第一级完成之前被点燃。</div>
+ </div>
+</section>
+
+<!-- ===== 尾 ===== -->
+<section class="slide s-deep" style="justify-content:center;align-items:center;text-align:center">
+ <div class="slide-inner" style="display:flex;flex-direction:column;align-items:center">
+  <svg viewBox="0 0 240 108" style="width:clamp(120px,17vw,230px);margin-bottom:34px" fill="none" aria-hidden="true">
+   <path d="M20,80 C4,62 12,34 42,28 C60,24 71,33 88,29 C106,24 119,9 141,13 C151,15 157,24 167,22 C181,19 187,5 197,9 C206,13 201,27 194,35 C205,39 215,47 217,59 C220,76 206,90 187,91 L54,93 C36,94 28,88 20,80 Z" fill="#F7F2E7"/>
+   <circle cx="70" cy="72" r="8" fill="#083F36"/><circle cx="97" cy="72" r="8" fill="#083F36"/>
+  </svg>
+  <h1 style="color:var(--orange);font-size:clamp(44px,8vw,104px)">我们一起</h1>
+  <p class="lead" style="color:rgba(247,242,231,.66);margin-top:22px;text-align:center">叮住集团 · TRUEDING GROUP</p>
+  <div class="note" style="margin-top:44px;max-width:640px;text-align:left;border-color:rgba(247,242,231,.3);color:rgba(247,242,231,.5)">
+   本文件为内部与受控分发材料。所载经营数据除注明外均为集团自有统计口径；投资测算为基于既有门店数据的模型推算，明确标注假设与口径，<strong>不构成任何形式的收益承诺或投资建议</strong>。最终投资额与经营结果以一店一算及实际经营为准。
+  </div>
+ </div>
+</section>
+
+</div>
+
+<script>
+(function(){
+  var deck=document.getElementById('deck'),
+      slides=[].slice.call(deck.querySelectorAll('.slide')),
+      bar=document.getElementById('bar'),
+      idx=document.getElementById('idx'),
+      hint=document.getElementById('hint'),
+      cur=0;
+
+  function nearest(){
+    var t=deck.scrollTop, best=0, d=Infinity;
+    slides.forEach(function(s,i){var v=Math.abs(s.offsetTop-t); if(v<d){d=v;best=i;}});
+    return best;
+  }
+  function sync(){
+    cur=nearest();
+    var pct=slides.length>1 ? cur/(slides.length-1)*100 : 100;
+    bar.style.width=pct+'%';
+    idx.textContent=String(cur+1).padStart(2,'0')+' / '+slides.length;
+  }
+  function go(n){
+    n=Math.max(0,Math.min(slides.length-1,n));
+    cur=n; deck.scrollTo({top:slides[n].offsetTop,behavior:'smooth'});
+  }
+
+  deck.addEventListener('scroll',function(){
+    clearTimeout(deck._t); deck._t=setTimeout(sync,60);
+  },{passive:true});
+
+  document.addEventListener('keydown',function(e){
+    if(e.metaKey||e.ctrlKey||e.altKey) return;
+    var k=e.key;
+    if(k==='ArrowDown'||k==='ArrowRight'||k==='PageDown'||k===' '){e.preventDefault();go(nearest()+1);}
+    else if(k==='ArrowUp'||k==='ArrowLeft'||k==='PageUp'){e.preventDefault();go(nearest()-1);}
+    else if(k==='Home'){e.preventDefault();go(0);}
+    else if(k==='End'){e.preventDefault();go(slides.length-1);}
+  });
+
+  sync();
+  setTimeout(function(){hint.style.opacity='0';},5200);
+})();
+</script>
