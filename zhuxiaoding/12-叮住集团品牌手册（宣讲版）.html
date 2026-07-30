@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>叮住集团 · 我们是一家科技资产运营公司</title>
+
+<!-- ============================================================
+     FONTS
+     Noto Serif SC 900 — 中文宣言标题（庄重·决断）
+     Noto Sans SC      — 中文正文
+     Fraunces          — 拉丁文与章节数字（人文衬线·有性格）
+     ============================================================ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;700;900&display=swap">
+
+<style>
+/* ============================================================
+   THEME — 全部颜色与字号从这里调
+   墨绿 + 爱马仕橙 + 米白（TrueDing 品牌色系）
+   ============================================================ */
+:root {
+    --ink:        #062E27;                    /* 最深的墨绿：舞台底色 */
+    --green-deep: #083F36;                    /* 深墨绿：暗页背景 */
+    --green:      #0E5A4E;                    /* 品牌墨绿 */
+    --cream:      #F7F2E7;                    /* 米白：亮页背景 / 暗页文字 */
+    --cream-dim:  rgba(247, 242, 231, 0.62);  /* 暗页次级文字 */
+    --cream-faint:rgba(247, 242, 231, 0.38);  /* 暗页弱文字 */
+    --orange:     #F5841F;                    /* 爱马仕橙：唯一强调色 */
+    --orange-deep:#D96D0C;
+    --line:       rgba(247, 242, 231, 0.14);  /* 暗页分隔线 */
+    --ink-on-cream:   #083F36;                /* 亮页主文字 */
+    --dim-on-cream:   rgba(8, 63, 54, 0.60);  /* 亮页次级文字 */
+    --line-on-cream:  rgba(8, 63, 54, 0.16);  /* 亮页分隔线 */
+
+    --serif: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', 'SimSun', serif;
+    --sans:  'Noto Sans SC', 'Source Han Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    --latin: 'Fraunces', Georgia, serif;
+
+    --stage-bg: var(--ink);
+    --slide-bg: var(--green-deep);
+
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ============================================================
+   FIXED 16:9 STAGE — viewport-base.css（完整原样，勿删）
+   ============================================================ */
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: var(--stage-bg, #000);
+}
+
+.deck-viewport {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    background: var(--stage-bg, #000);
+}
+
+.deck-stage {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    transform-origin: 0 0;
+    background: var(--slide-bg, #fff);
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    background: var(--slide-bg, #fff);
+}
+
+.slide.active,
+.slide.visible {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 1;
+}
+
+img, video, canvas, svg {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.deck-controls {
+    position: fixed;
+    left: 50%;
+    bottom: 22px;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+@media print {
+    html, body {
+        width: 1920px;
+        height: auto;
+        overflow: visible;
+        background: #fff;
+    }
+    .deck-viewport {
+        position: static;
+        overflow: visible;
+        background: #fff;
+    }
+    .deck-stage {
+        position: static;
+        width: auto;
+        height: auto;
+        transform: none !important;
+        background: none;
+    }
+    .slide {
+        position: relative;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        width: 1920px;
+        height: 1080px;
+        break-after: page;
+        page-break-after: always;
+    }
+    .slide:last-child {
+        break-after: auto;
+        page-break-after: auto;
+    }
+    .deck-controls { display: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.2s !important;
+    }
+}
+/* ================= viewport-base.css 结束 ================= */
+
+/* ============================================================
+   SLIDE SURFACES — 暗页 / 亮页 两套底
+   暗页：墨绿 + 极淡图纸网格 + 深部辉光（呼应"资产改造"的图纸感）
+   ============================================================ */
+.slide { transition: opacity 0.5s ease; }
+
+.s-dark {
+    background:
+        radial-gradient(1100px 700px at 82% -10%, rgba(14, 90, 78, 0.55) 0%, transparent 60%),
+        radial-gradient(900px 600px at -10% 110%, rgba(6, 46, 39, 0.9) 0%, transparent 55%),
+        linear-gradient(rgba(247,242,231,0.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(247,242,231,0.028) 1px, transparent 1px),
+        var(--green-deep);
+    background-size: auto, auto, 64px 64px, 64px 64px, auto;
+    color: var(--cream);
+}
+
+.s-light {
+    background:
+        radial-gradient(1000px 640px at 90% 0%, rgba(14, 90, 78, 0.07) 0%, transparent 55%),
+        linear-gradient(rgba(8,63,54,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(8,63,54,0.045) 1px, transparent 1px),
+        var(--cream);
+    background-size: auto, 64px 64px, 64px 64px, auto;
+    color: var(--ink-on-cream);
+}
+
+/* 内容容器：1920×1080 内的固定排版 */
+.wrap {
+    position: absolute;
+    inset: 0;
+    padding: 110px 150px 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.wrap.top { justify-content: flex-start; }
+.wrap.center { align-items: center; text-align: center; }
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+.kicker {
+    font-family: var(--sans);
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 0.42em;
+    color: var(--orange);
+    margin-bottom: 42px;
+}
+.s-light .kicker { color: var(--orange-deep); }
+
+.latin {
+    font-family: var(--latin);
+    font-weight: 500;
+    letter-spacing: 0.34em;
+    font-size: 24px;
+    color: var(--cream-dim);
+}
+.s-light .latin { color: var(--dim-on-cream); }
+
+h1, h2, h3 { font-family: var(--serif); font-weight: 900; }
+
+.headline {
+    font-size: 76px;
+    line-height: 1.32;
+    letter-spacing: 0.02em;
+    margin-bottom: 8px;
+}
+.headline .hl { color: var(--orange); }
+
+.giant {
+    font-size: 104px;
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+}
+.giant .hl { color: var(--orange); }
+
+.support {
+    font-family: var(--sans);
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 1.95;
+    color: var(--cream-dim);
+    max-width: 1420px;
+}
+.s-light .support { color: var(--dim-on-cream); }
+.support b, .support strong { color: var(--cream); font-weight: 700; }
+.s-light .support b, .s-light .support strong { color: var(--ink-on-cream); }
+.support .hl { color: var(--orange); font-weight: 700; }
+
+/* 橙色短横：标题下的定音符 */
+.rule {
+    width: 96px;
+    height: 6px;
+    background: var(--orange);
+    margin: 46px 0 52px;
+}
+.wrap.center .rule { margin-left: auto; margin-right: auto; }
+
+/* 引言块：左橙线 */
+.pull {
+    border-left: 6px solid var(--orange);
+    padding: 18px 0 18px 48px;
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 44px;
+    line-height: 1.7;
+    max-width: 1480px;
+}
+.pull .hl { color: var(--orange); }
+
+/* 词条药丸 */
+.pills { display: flex; flex-wrap: wrap; gap: 22px; }
+.pill {
+    font-family: var(--sans);
+    font-size: 30px;
+    font-weight: 500;
+    padding: 16px 38px;
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+    color: var(--cream-dim);
+}
+.s-light .pill { border-color: var(--line-on-cream); color: var(--dim-on-cream); }
+.pill.on { border-color: var(--orange); color: var(--orange); font-weight: 700; }
+
+/* ============================================================
+   章扉 — 巨大 Fraunces 章号（描边橙）+ 章题
+   ============================================================ */
+.chapter .frame {
+    position: absolute;
+    inset: 54px;
+    border: 1px solid var(--line);
+    pointer-events: none;
+}
+.chapter .frame::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: -1px;
+    width: 18px; height: 18px;
+    background: var(--orange);
+}
+.chapnum {
+    font-family: var(--latin);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 400px;
+    line-height: 0.9;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--orange);
+    text-stroke: 2px var(--orange);
+    opacity: 0.9;
+}
+.chapter .headline { font-size: 96px; }
+.chapter .sub {
+    font-family: var(--sans);
+    font-size: 34px;
+    line-height: 1.9;
+    color: var(--cream-dim);
+    max-width: 1180px;
+    margin-top: 40px;
+}
+
+/* ============================================================
+   卡片与表格
+   ============================================================ */
+.cols { display: flex; gap: 44px; }
+.card {
+    flex: 1;
+    border: 1px solid var(--line);
+    background: rgba(247, 242, 231, 0.04);
+    padding: 56px 52px;
+}
+.s-light .card { border-color: var(--line-on-cream); background: rgba(8, 63, 54, 0.035); }
+.card.accent { border-color: var(--orange); border-width: 2px; }
+.card.dashed { border-style: dashed; background: transparent; }
+.card .no {
+    font-family: var(--latin);
+    font-style: italic;
+    font-size: 34px;
+    color: var(--orange);
+    display: block;
+    margin-bottom: 26px;
+}
+.card h3 { font-size: 46px; margin-bottom: 28px; line-height: 1.4; }
+.card p  {
+    font-family: var(--sans);
+    font-size: 27px;
+    line-height: 1.85;
+    color: var(--cream-dim);
+}
+.s-light .card p { color: var(--dim-on-cream); }
+.card p b { color: var(--cream); }
+.s-light .card p b { color: var(--ink-on-cream); }
+.card p .hl { color: var(--orange); font-weight: 700; }
+
+table.tbl {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--sans);
+}
+.tbl th {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-align: left;
+    color: var(--orange);
+    padding: 26px 34px;
+    border-bottom: 2px solid var(--orange);
+    white-space: nowrap;
+}
+.tbl td {
+    font-size: 30px;
+    line-height: 1.7;
+    padding: 25px 34px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+}
+.s-light .tbl td { border-bottom-color: var(--line-on-cream); }
+.tbl td.name {
+    font-family: var(--serif);
+    font-weight: 900;
+    font-size: 36px;
+    white-space: nowrap;
+}
+.tbl td .dim { color: var(--cream-dim); }
+.s-light .tbl td .dim { color: var(--dim-on-cream); }
+.tbl td .hl { color: var(--orange); font-weight: 700; }
+
+/* ============================================================
+   入场动画 — .visible 触发，子元素依次显现
+   ============================================================ */
+.reveal {
+    opacity: 0;
+    transform: translateY(34px);
+    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+.slide.visible .reveal { opacity: 1; transform: translateY(0); }
+.reveal:nth-child(1) { transition-delay: 0.05s; }
+.reveal:nth-child(2) { transition-delay: 0.16s; }
+.reveal:nth-child(3) { transition-delay: 0.27s; }
+.reveal:nth-child(4) { transition-delay: 0.38s; }
+.reveal:nth-child(5) { transition-delay: 0.49s; }
+.reveal:nth-child(6) { transition-delay: 0.60s; }
+.reveal:nth-child(7) { transition-delay: 0.71s; }
+.reveal:nth-child(8) { transition-delay: 0.82s; }
+
+/* ============================================================
+   放映台外的界面（进度条 / 页码 / 编辑）
+   ============================================================ */
+#progress {
+    position: fixed;
+    left: 0; bottom: 0;
+    height: 4px;
+    width: 0;
+    background: var(--orange);
+    z-index: 1200;
+    transition: width 0.4s var(--ease);
+}
+#counter {
+    position: fixed;
+    right: 28px; bottom: 20px;
+    z-index: 1200;
+    font-family: var(--latin);
+    font-style: italic;
+    font-size: 15px;
+    letter-spacing: 0.18em;
+    color: rgba(247, 242, 231, 0.5);
+    user-select: none;
+}
+#hint {
+    position: fixed;
+    left: 28px; bottom: 20px;
+    z-index: 1200;
+    font-family: var(--sans);
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: rgba(247, 242, 231, 0.35);
+    transition: opacity 1s ease;
+    user-select: none;
+}
+
+/* 隐形编辑入口：左上角热区 + E 键（见脚本） */
+.edit-hotzone {
+    position: fixed;
+    top: 0; left: 0;
+    width: 80px; height: 80px;
+    z-index: 10000;
+    cursor: pointer;
+}
+.edit-toggle {
+    position: fixed;
+    top: 18px; left: 18px;
+    z-index: 10001;
+    font-size: 20px;
+    line-height: 1;
+    padding: 10px 14px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: rgba(6, 46, 39, 0.85);
+    color: var(--cream);
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.edit-toggle.show, .edit-toggle.active { opacity: 1; pointer-events: auto; }
+.edit-toggle.active { border-color: var(--orange); color: var(--orange); }
+body.editing [contenteditable="true"]:hover { outline: 1.5px dashed var(--orange); outline-offset: 4px; }
+</style>
+</head>
+<body>
+
+<div class="deck-viewport">
+<main class="deck-stage" id="deckStage">
+
+<!-- ═══════════════ 屏 01 · 封面 ═══════════════ -->
+<section class="slide s-dark active">
+    <div class="wrap">
+        <div class="latin reveal" style="margin-bottom:120px;">TRUEDING GROUP · 叮住集团</div>
+        <h1 class="reveal" style="font-family:var(--serif);font-weight:900;font-size:64px;color:var(--cream-dim);margin-bottom:26px;">我们是一家</h1>
+        <h1 class="giant reveal" style="font-size:148px;">科技<span class="hl">资产</span>运营公司</h1>
+        <div class="rule reveal"></div>
+        <p class="support reveal" style="font-size:30px;">集团战略与品牌体系 · 二〇二六</p>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 02 · 我们是谁 ═══════════════ -->
+<section class="slide s-light">
+    <div class="wrap">
+        <div class="kicker reveal">我们是谁</div>
+        <h2 class="giant reveal" style="color:var(--dim-on-cream);font-size:88px;">我们不做新的房子。</h2>
+        <h2 class="giant reveal" style="margin-top:18px;">我们让旧的房子<span class="hl">重新开始赚钱</span>。</h2>
+        <div class="rule reveal"></div>
+        <p class="support reveal">中国不缺房子。中国缺的是让房子产生现金流的能力。</p>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 03 · 三个词 ═══════════════ -->
+<section class="slide s-dark">
+    <div class="wrap">
+        <div class="kicker reveal">公司名里的三个词，就是我们的三种能力</div>
+        <div class="cols reveal" style="margin-top:30px;">
+            <div class="card">
+                <span class="no">01</span>
+                <h3 style="font-size:60px;">科技</h3>
+                <p>门店端全自助，<br>总部端 AI Agent。<br><br><b>决定我们能管多少家店，而不用同比例地增加人。</b></p>
+            </div>
+            <div class="card">
+                <span class="no">02</span>
+                <h3 style="font-size:60px;">资产</h3>
+                <p>在高价值区域<br>获取非标物业的能力。<br><br><b>决定我们能拿到什么样的房子。</b></p>
+            </div>
+            <div class="card">
+                <span class="no">03</span>
+                <h3 style="font-size:60px;">运营</h3>
+                <p>装配式工艺、品牌体系、<br>零驻店管控。<br><br><b>决定我们能否规模化复制。</b></p>
+            </div>
+        </div>
+        <p class="support reveal" style="margin-top:56px;">只有资产，是二房东；只有运营，是酒店管理公司；只有科技，是软件公司。<br><b>三个合起来，才是一家科技资产运营公司。</b></p>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 04 · 今天回答三个问题 ═══════════════ -->
+<section class="slide s-dark">
+    <div class="wrap">
+        <div class="kicker reveal">今天要回答的三个问题</div>
+        <div class="reveal" style="display:flex;align-items:baseline;gap:40px;margin-top:20px;">
+            <span style="font-family:var(--latin);font-style:italic;font-size:52px;color:var(--orange);">I</span>
+            <h2 class="headline" style="font-size:84px;">为什么是现在</h2>
+        </div>
+        <div class="reveal" style="display:flex;align-items:baseline;gap:40px;margin-top:44px;">
+            <span style="font-family:var(--latin);font-style:italic;font-size:52px;color:var(--orange);">II</span>
+            <h2 class="headline" style="font-size:84px;">我们凭什么</h2>
+        </div>
+        <div class="reveal" style="display:flex;align-items:baseline;gap:40px;margin-top:44px;">
+            <span style="font-family:var(--latin);font-style:italic;font-size:52px;color:var(--orange);">III</span>
+            <h2 class="headline" style="font-size:84px;">我们要成为什么</h2>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 05 · 章扉 Ⅰ ═══════════════ -->
+<section class="slide s-dark chapter">
+    <div class="frame"></div>
+    <div class="wrap" style="flex-direction:row;align-items:center;gap:110px;">
+        <div class="chapnum reveal">I</div>
+        <div>
+            <h2 class="headline reveal">为什么是现在</h2>
+            <p class="sub reveal">机会不在于再造一个更便宜的酒店，<br>而在于一场正在发生的资产易主，和一个被长期误读的需求。</p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 06 · 资产大换仓 ═══════════════ -->
+<section class="slide s-dark">
+    <div class="wrap">
+        <div class="kicker reveal">时代</div>
+        <h2 class="headline reveal">中国正在经历一场<span class="hl">资产大换仓</span></h2>
+        <div class="rule reveal"></div>
+        <p class="support reveal">旧的持有者退场，进场的是国资平台、地产基金、家族办公室、产业资本。<br>但这些新的资产主人，绝大多数不具备精细化运营的能力。</p>
+        <div class="pull reveal" style="margin-top:64px;">新的资产主人手里有砖头，<br>缺的是让砖头<span class="hl">产生现金流</span>的系统。</div>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 07 · 存量物业的困境 ═══════════════ -->
+<section class="slide s-dark">
+    <div class="wrap">
+        <div class="kicker reveal">存量</div>
+        <h2 class="headline reveal">区位不差，只是产品过时了</h2>
+        <div class="rule reveal"></div>
+        <div class="pills reveal" style="margin-bottom:60px;">
+            <span class="pill">老宾馆</span><span class="pill">招待所</span><span class="pill">写字楼裙房</span><span class="pill">商场冷区</span><span class="pill">无窗深层</span><span class="pill">异形平面</span>
+        </div>
+        <p class="support reveal">这些空间有一个共同点：<b>区位价值还在，但没有一种产品能装进去。</b><br>传统酒店要窗、要面积、要方正的平面——这些空间一样都给不了。</p>
+        <p class="support reveal" style="margin-top:40px;"><span class="hl">我们的产品要求正好相反。这就是为什么我们能在别人拿不下来的地方开店。</span></p>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 08 · 需求真相 ═══════════════ -->
+<section class="slide s-light">
+    <div class="wrap">
+        <div class="kicker reveal">一个被长期误读的需求</div>
+        <div class="cols reveal">
+            <div class="card">
+                <span class="no">行业默认</span>
+                <h3>低价客群只看价格</h3>
+                <p>价格是唯一的决策变量，<br>便宜就是全部。</p>
+            </div>
+            <div class="card accent">
+                <span class="no">我们的用户调研</span>
+                <h3>干净卫生是决策第一因素<br><span style="color:var(--orange);">远超价格</span></h3>
+                <p>且近四成用户表示，<b>愿意为更好的体验支付更高的房费</b>。</p>
+            </div>
+        </div>
+        <h2 class="giant reveal" style="margin-top:80px;font-size:92px;">同价位，我们只比<span class="hl">干净</span>。</h2>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 09 · 我们的答案 ═══════════════ -->
+<section class="slide s-dark">
+    <div class="wrap center">
+        <p class="support reveal" style="font-size:38px;">时代给了我们大量沉睡的资产，<br>需求告诉我们，这些人要的是干净而不是便宜。</p>
+        <div class="rule reveal"></div>
+        <h2 class="headline reveal" style="font-size:70px;">所以我们要做的不是一家酒店公司，<br>而是<span class="hl">一套让存量资产重新产生现金流的系统</span>。</h2>
+        <div class="pills reveal" style="margin-top:70px;justify-content:center;">
+            <span class="pill on">资产</span><span class="pill on">科技</span><span class="pill on">运营</span>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 10 · 章扉 Ⅱ 资产 ═══════════════ -->
+<section class="slide s-dark chapter">
+    <div class="frame"></div>
+    <div class="wrap" style="flex-direction:row;align-items:center;gap:110px;">
+        <div class="chapnum reveal">II</div>
+        <div>
+            <h2 class="headline reveal">资产</h2>
+            <p class="sub reveal">我们怎么看一块物业</p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 11 · 反直觉的事实 ═══════════════ -->
+<section class="slide s-dark">
+    <div class="wrap">
+        <div class="kicker reveal">一个反直觉的事实</div>
+        <h2 class="headline reveal">在我们这个价位，<br>房价的上限<span class="hl">不由土地价值决定</span></h2>
+        <div class="rule reveal"></div>
+        <p class="support reveal">传统酒店的定价锚，是同地段的其他酒店——所以房价跟着地段走。</p>
+        <p class="support reveal" style="margin-top:36px;"><b>我们的定价锚，是合租房、青旅床位、胶囊旅馆</b>——<br>而这些东西的价格，几乎不随地段变化。<span class="hl">它们跟着需求锚点走，不跟着地价走。</span></p>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 12 · 按锚点选址 ═══════════════ -->
+<section class="slide s-dark">
+    <div class="wrap">
+        <div class="kicker reveal">所以我们按锚点选址</div>
+        <h2 class="headline reveal">我们看的不是地段等级，<br>是<span class="hl">需求锚点</span></h2>
+        <div class="rule reveal"></div>
+        <div class="pills reveal" style="margin-bottom:64px;">
+            <span class="pill">地铁站</span><span class="pill">三甲医院</span><span class="pill">大学</span><span class="pill">火车站与机场</span><span class="pill">大型园区与工地</span><span class="pill">景区</span>
+        </div>
+        <div class="pull reveal">锚点决定谁会来住，<br>地段只决定房东要多少钱。</div>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 13 · 核心能力（全篇重心） ═══════════════ -->
+<section class="slide s-light">
+    <div class="wrap">
+        <div class="kicker reveal">我们真正的核心能力</div>
+        <h2 class="giant reveal" style="font-size:82px;color:var(--dim-on-cream);">我们不是在贵的地方付更贵的租金，</h2>
+        <h2 class="giant reveal" style="font-size:82px;margin-top:14px;">我们是在高价值区域，<br>找到被定价成<span class="hl">低价值</span>的物业。</h2>
+        <div class="pills reveal" style="margin-top:66px;">
+            <span class="pill">老招待所</span><span class="pill">商场冷区</span><span class="pill">异形平面</span><span class="pill">无窗深层</span><span class="pill">停业宾馆</span>
+        </div>
+        <p class="support reveal" style="margin-top:56px;">这是从几十家门店里一家一家试出来的能力，<b>也是这门生意里难以被复制的一项</b>——<br>产品可以被模仿，价格可以被模仿，装修工艺可以被模仿。<span class="hl">这一条不行。</span></p>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 14 · 选址纪律 ═══════════════ -->
+<section class="slide s-dark">
+    <div class="wrap">
+        <div class="kicker reveal">选址纪律</div>
+        <h2 class="headline reveal">我们宁可在签约前，<br>告诉你这块物业<span class="hl">不合适</span></h2>
+        <div class="rule reveal"></div>
+        <div class="card accent reveal" style="max-width:1500px;padding:50px 56px;">
+            <p style="font-size:34px;line-height:1.9;"><b>选址标准要求：测算上不具备三年左右回收能力的物业，我们不签。</b></p>
+        </div>
+        <p class="support reveal" style="margin-top:52px;">我们不提供一个统一的回报数字——每一块物业的回报，取决于这块物业本身。<br>我们提供的是<b>一套一店一算的方法</b>：租金与收入的关系、锚点的需求强度、平面的可运营面积。<br>三个变量确定之后，项目成立还是不成立，答案是自己跳出来的。</p>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 15 · 章扉 Ⅲ 科技 ═══════════════ -->
+<section class="slide s-dark chapter">
+    <div class="frame"></div>
+    <div class="wrap" style="flex-direction:row;align-items:center;gap:110px;">
+        <div class="chapnum reveal">III</div>
+        <div>
+            <h2 class="headline reveal">科技</h2>
+            <p class="sub reveal">我们把人从两端都拿掉了</p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 16 · 规模化真正的瓶颈 ═══════════════ -->
+<section class="slide s-dark">
+    <div class="wrap">
+        <div class="kicker reveal">规模化真正的瓶颈</div>
+        <h2 class="headline reveal">连锁酒店做不大，卡住的从来不是钱，<br>是总部的<span class="hl">决策带宽</span></h2>
+        <div class="rule reveal"></div>
+        <p class="support reveal">一百家店的时候，选址、定价、品控、督导还能靠人。<br><b>一千家店的时候，人不够了。</b></p>
+        <p class="support reveal" style="margin-top:40px;">行业过去的解法是加人——于是总部成本随门店数线性增长，规模越大亏得越多。<br><span class="hl">我们的解法不是加人，是把决策变成软件。</span></p>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 17 · 门店端全自助 ═══════════════ -->
+<section class="slide s-dark">
+    <div class="wrap">
+        <div class="kicker reveal">门店端 · 把人拿掉</div>
+        <h2 class="headline reveal">全自助运营系统</h2>
+        <div class="rule reveal"></div>
+        <div class="pills reveal" style="margin-bottom:58px;">
+            <span class="pill">自助入住</span><span class="pill">人脸核验</span><span class="pill">智能门锁</span><span class="pill">自助洗衣</span><span class="pill">自助寄存</span><span class="pill">外卖暂存</span><span class="pill">自助零售</span>
+        </div>
+        <p class="support reveal">一个客人从进门到离店，全程可以不接触任何一个工作人员。<br>这套系统已在住大叮做到完整形态——<b>「全自助酒店 1.0」</b>。</p>
+        <p class="support reveal" style="margin-top:38px;">它对门店的意义是省人力。<span class="hl">它对集团的意义，在后面两页。</span></p>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 18 · 总部端叮住 AI ═══════════════ -->
+<section class="slide s-dark">
+    <div class="wrap">
+        <div class="kicker reveal">总部端 · 也把人拿掉</div>
+        <h2 class="headline reveal">叮住 AI · 酒店 Agent</h2>
+        <div class="rule reveal"></div>
+        <div class="cols reveal">
+            <div class="card">
+                <span class="no">Agent 01</span>
+                <h3>调价</h3>
+                <p>每一家店、每一天、每一个房型的价格。周边实时价格、历史成交、锚点的需求节奏——<b>处理的信息量是人做不到的。</b></p>
+            </div>
+            <div class="card">
+                <span class="no">Agent 02</span>
+                <h3>质检</h3>
+                <p>每一家店的清洁标准与服务标准，<b>不再靠督导跑现场抽查。</b></p>
+            </div>
+            <div class="card">
+                <span class="no">Agent 03</span>
+                <h3>评价回复</h3>
+                <p>每一条客人留下的评价，<b>都被认真读懂并回应。</b></p>
+            </div>
+        </div>
+        <p class="support reveal" style="margin-top:54px;"><span class="hl">提升运营信息密度，降低决策成本。</span></p>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 19 · 为什么恰好是这三件事 ═══════════════ -->
+<section class="slide s-dark">
+    <div class="wrap">
+        <div class="kicker reveal">为什么恰好是这三件事</div>
+        <h2 class="headline reveal" style="font-size:64px;">总部做四件事，三件是高频的</h2>
+        <table class="tbl reveal" style="margin-top:40px;max-width:1500px;">
+            <tr><th style="width:30%;">事项</th><th style="width:38%;">频率</th><th>谁来做</th></tr>
+            <tr><td class="name">选址</td><td class="dim">低频 · 高价值</td><td><b>人</b></td></tr>
+            <tr><td class="name">定价</td><td class="dim">每天</td><td class="hl">Agent</td></tr>
+            <tr><td class="name">品控</td><td class="dim">每天</td><td class="hl">Agent</td></tr>
+            <tr><td class="name">口碑</td><td class="dim">每天</td><td class="hl">Agent</td></tr>
+        </table>
+        <p class="support reveal" style="margin-top:42px;">过去，一个收益经理能盯住的店是有限的，一个督导能跑的店是有限的——<br>这三条曲线，就是连锁总部人数随门店数线性增长的三个源头。<br><b>Agent 接管之后，这三条曲线全部被压平了。</b><span class="hl">人只留在低频高价值的判断上。</span></p>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 20 · 两端合起来（宣言） ═══════════════ -->
+<section class="slide s-dark">
+    <div class="wrap center">
+        <p class="support reveal" style="font-size:36px;">全自助把人从门店端拿掉，Agent 把人从总部端拿掉。</p>
+        <h2 class="giant reveal" style="margin-top:36px;font-size:88px;">一个人力几乎<span class="hl">不随门店数增长</span><br>的连锁体系</h2>
+        <div class="rule reveal"></div>
+        <p class="support reveal" style="font-size:34px;">当运营能力可以被软件化，它就从<b>一支团队</b>变成<b>一套系统</b>。<br><span class="hl">团队不能被复制、不能被授权、不能被定价。系统可以。</span></p>
+        <p class="support reveal" style="margin-top:34px;font-size:29px;">这是我们敢做多品牌、敢做零驻店合作、敢讲管理输出的底层原因。<br>它服务于我们所有的品牌。</p>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 21 · 章扉 Ⅳ 运营 ═══════════════ -->
+<section class="slide s-dark chapter">
+    <div class="frame"></div>
+    <div class="wrap" style="flex-direction:row;align-items:center;gap:110px;">
+        <div class="chapnum reveal">IV</div>
+        <div>
+            <h2 class="headline reveal">运营</h2>
+            <p class="sub reveal">一套底座，五个品牌</p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 22 · 品牌矩阵 ═══════════════ -->
+<section class="slide s-light">
+    <div class="wrap">
+        <div class="kicker reveal">品牌矩阵</div>
+        <h2 class="headline reveal" style="font-size:60px;">多品牌不是多做几个标识，<br>是把同一套底座，铺到不同的房型和物业上</h2>
+        <table class="tbl reveal" style="margin-top:44px;">
+            <tr><th style="width:24%;"></th><th style="width:38%;">大物业</th><th>小物业 · 自持业主</th></tr>
+            <tr>
+                <td class="name">带独卫</td>
+                <td><b style="font-family:var(--serif);font-weight:900;font-size:34px;">住大叮</b> <span class="dim">TrueDing · 全自助酒店 1.0</span></td>
+                <td><b style="font-family:var(--serif);font-weight:900;font-size:34px;">叮舍</b></td>
+            </tr>
+            <tr>
+                <td class="name">共享卫浴</td>
+                <td><b style="font-family:var(--serif);font-weight:900;font-size:34px;">住小叮</b> <span class="dim">已验证的主力</span></td>
+                <td><b style="font-family:var(--serif);font-weight:900;font-size:34px;">叮栈</b></td>
+            </tr>
+            <tr>
+                <td class="name">存量改造</td>
+                <td colspan="2"><b style="font-family:var(--serif);font-weight:900;font-size:34px;">叮铺</b> <span class="dim">停业宾馆 · 老招待所的第二次生命</span></td>
+            </tr>
+        </table>
+        <p class="support reveal" style="margin-top:44px;"><b>覆盖从数十元到三百元的完整价格带</b>——同一个客人在人生的不同阶段，都有一个我们的产品接得住他。</p>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 23 · 住小叮 ═══════════════ -->
+<section class="slide s-dark">
+    <div class="wrap">
+        <div class="kicker reveal">住小叮</div>
+        <h2 class="headline reveal">把四平米做成一门生意</h2>
+        <div class="rule reveal"></div>
+        <p class="support reveal">摒弃无效公摊，把全部资源押在<b>睡眠与卫生</b>上。<br>同样一千平米的物业，传统经济型做几十间，我们做出成倍于此的房量——<br>这就是为什么我们能进那些别人算不过账的物业。</p>
+        <p class="support reveal" style="margin-top:40px;">在行业出租率普遍下滑的这两年，<b>我们的门店常年接近满房</b>。<span class="hl">行业在下行，我们在满房。</span></p>
+        <div class="pull reveal" style="margin-top:52px;font-size:40px;">住小叮是<span class="hl">独立房间</span>，不是床位。<br>每一个客人关上门，那个空间就完全属于他。</div>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 24 · 住大叮 ═══════════════ -->
+<section class="slide s-dark">
+    <div class="wrap">
+        <div class="kicker reveal">住大叮 TrueDing · 我们一起</div>
+        <h2 class="headline reveal">它不是住小叮的升级款，<br>它是让我们能进入<span class="hl">另一类物业</span>的钥匙</h2>
+        <div class="rule reveal"></div>
+        <p class="support reveal">六到八平米 · 独立卫浴 · <b>每一间都有书桌</b>——<br>我们的用户里，商务出差和学习考试合计超过三成，他们需要的是一张桌子，和一扇能关上的门。</p>
+        <p class="support reveal" style="margin-top:40px;">不同的空间条件、建筑形态、合规要求，能装进去的产品不一样。<br>有些楼住小叮进不去，住大叮可以。<b>对一家资产运营公司来说，</b><br><span class="hl">「我能接住的资产种类更多」，比「我的房间更大」重要得多。</span></p>
+        <div class="pills reveal" style="margin-top:48px;">
+            <span class="pill on">合规适配</span><span class="pill on">客群拓展</span><span class="pill on">单店规模</span>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 25 · 叮铺 · 叮栈 · 叮舍 ═══════════════ -->
+<section class="slide s-dark">
+    <div class="wrap">
+        <div class="kicker reveal">把底座铺到更多物业形态上</div>
+        <div class="cols reveal" style="margin-top:20px;">
+            <div class="card">
+                <span class="no">存量再生</span>
+                <h3>叮铺</h3>
+                <p>停业宾馆、老招待所的第二次生命。<br><br>顺着原有格局做微改造，改造成本显著更低，对物业条件的要求也更宽。<br><br><b>产品仍是带独卫的私密房间，我们不做多人间。</b></p>
+            </div>
+            <div class="card">
+                <span class="no">自持业主</span>
+                <h3>叮栈 · 叮舍</h3>
+                <p>面向手上有物业、却拿不出改造资金的业主——空着的一层楼、停业的小宾馆、闲置的招待所。<br><br><b>我们提供的不只是品牌，是让这块资产重新开始产生现金流的整套东西。</b></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 26 · 组合部署 ═══════════════ -->
+<section class="slide s-dark">
+    <div class="wrap">
+        <div class="kicker reveal">多品牌带来的一个组合能力</div>
+        <h2 class="headline reveal">同一块物业，可以<span class="hl">分层部署</span></h2>
+        <div class="rule reveal"></div>
+        <!-- 平面示意：外圈采光面 / 内圈无窗深层 / 公区共享 -->
+        <div class="reveal" style="display:flex;gap:80px;align-items:center;">
+            <div style="flex-shrink:0;width:640px;height:400px;border:2px solid var(--cream-dim);position:relative;padding:52px;">
+                <span style="position:absolute;top:14px;left:24px;font-family:var(--sans);font-size:22px;color:var(--cream-dim);letter-spacing:0.2em;">采光面 · 带独卫的产品</span>
+                <div style="width:100%;height:100%;border:2px dashed var(--orange);position:relative;">
+                    <span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--sans);font-size:24px;color:var(--orange);letter-spacing:0.14em;white-space:nowrap;">无窗深层 · 不需要窗的产品</span>
+                </div>
+                <span style="position:absolute;bottom:-42px;left:0;font-family:var(--sans);font-size:22px;color:var(--cream-faint);letter-spacing:0.14em;">公共区域与后勤 · 共享</span>
+            </div>
+            <p class="support" style="font-size:30px;">采光好的外圈，放能卖更高价格的产品；<br>传统酒店没法用的无窗深层，放不需要窗的产品。<br><br><b>让一个平面里本来卖不掉的面积，变成可售面积。</b><br><br><span class="hl">只有一条产品线的公司，做不到这件事。</span></p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 27 · 叮住会 ═══════════════ -->
+<section class="slide s-dark">
+    <div class="wrap">
+        <div class="kicker reveal">叮住会</div>
+        <h2 class="headline reveal">把五个品牌连成一个集团</h2>
+        <div class="rule reveal"></div>
+        <p class="support reveal">供应链、工程标准、运营 SOP——都是<b>成本端</b>的协同，它们让我们做每件事更便宜。</p>
+        <div class="pull reveal" style="margin-top:56px;">真正把五个品牌在收入端连起来的，<br>只有一样东西：<span class="hl">共用的会员池</span>。</div>
+        <p class="support reveal" style="margin-top:52px;">一个客人在体系内升级，<b>而不是流向别人</b>。<br>覆盖完整价格带这件事，只有在会员打通之后才产生价值——否则五个品牌就是五家公司。</p>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 28 · 章扉 Ⅴ 我们怎么合作 ═══════════════ -->
+<section class="slide s-dark chapter">
+    <div class="frame"></div>
+    <div class="wrap" style="flex-direction:row;align-items:center;gap:110px;">
+        <div class="chapnum reveal">V</div>
+        <div>
+            <h2 class="headline reveal">我们怎么合作</h2>
+            <p class="sub reveal">先看你手里有什么</p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 29 · 四种参与方式 ═══════════════ -->
+<section class="slide s-light">
+    <div class="wrap">
+        <div class="kicker reveal">四种参与方式</div>
+        <table class="tbl reveal" style="margin-top:10px;">
+            <tr><th style="width:22%;">模式</th><th style="width:30%;">适合谁</th><th style="width:20%;">你出什么</th><th>我们出什么</th></tr>
+            <tr><td class="name">特许经营加盟</td><td class="dim">有物业与资金的投资者</td><td>物业 + 建设资金</td><td class="dim">品牌 · 标准 · 工程 · 渠道 · 培训 · 督导</td></tr>
+            <tr><td class="name">物业联营</td><td><b>有物业但没有建设资金的业主</b></td><td class="hl">只出物业</td><td class="dim"><b style="color:var(--ink-on-cream);">改造资金 + 全部运营体系</b>，收益按约定分配</td></tr>
+            <tr><td class="name">全委托管理</td><td class="dim">纯财务型投资者</td><td>资金</td><td class="dim">全程托管运营</td></tr>
+            <tr><td class="name">区域独家代理</td><td class="dim">区域资源方</td><td>区域拓展能力</td><td class="dim">独家拓展权限</td></tr>
+        </table>
+        <p class="support reveal" style="margin-top:44px;">对手上有闲置空间、却没有现金的业主：<b>物业联营让这块资产几乎零现金投入，就能重新开始产生现金流。</b></p>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 30 · 四道墙 ═══════════════ -->
+<section class="slide s-dark">
+    <div class="wrap">
+        <div class="kicker reveal">我们怎么保护你的投资</div>
+        <div class="cols reveal">
+            <div class="card">
+                <span class="no">墙 一</span>
+                <h3>价格墙</h3>
+                <p>每个品牌在每个城市的价格区间是设定好的，门店无权越界，系统里改不了。<br><b>让你不被同品牌门店的低价冲击。</b></p>
+            </div>
+            <div class="card">
+                <span class="no">墙 二</span>
+                <h3>渠道墙</h3>
+                <p>渠道账号由集团统一持有，定价权在总部。<br><b>这是价格墙能生效的前提。</b></p>
+            </div>
+        </div>
+        <div class="cols reveal" style="margin-top:36px;">
+            <div class="card">
+                <span class="no">墙 三</span>
+                <h3>区域墙</h3>
+                <p>按品牌授予保护半径，签约时说清楚。<br><b>保护你的商圈。</b></p>
+            </div>
+            <div class="card">
+                <span class="no">墙 四</span>
+                <h3>责任墙</h3>
+                <p>品牌分设独立主体，独立投保。<br><b>集团为品牌标准背书，不为单店经营行为背书。</b></p>
+            </div>
+        </div>
+        <p class="support reveal" style="margin-top:36px;"><span class="hl">全部做成系统约束——写进系统，不是写进手册。</span></p>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 31 · 不做的三件事 ═══════════════ -->
+<section class="slide s-light">
+    <div class="wrap">
+        <div class="kicker reveal">说清楚不做什么，比列举做什么更能说明一家公司</div>
+        <div class="cols reveal" style="margin-top:20px;">
+            <div class="card">
+                <span class="no" style="font-size:56px;">✕</span>
+                <h3>不做收入保底</h3>
+                <p>不对合作方作任何形式的收入保底或投资回报承诺。<br><br><b>承诺保底的一方，最后都是自己在贴钱</b>——贴到贴不动为止，然后所有合作方一起遭殃。</p>
+            </div>
+            <div class="card">
+                <span class="no" style="font-size:56px;">✕</span>
+                <h3>不做只挂牌</h3>
+                <p>必须按标准完成改造并通过竣工验收，才能上线渠道。<br><br><b>品牌的价值来自每一家店同样的干净程度</b>，放开这一条，所有努力半年归零。</p>
+            </div>
+            <div class="card">
+                <span class="no" style="font-size:56px;">✕</span>
+                <h3>不做包租二房东</h3>
+                <p>不以长约包租的方式持有物业。<br><br><b>长周期租金在收入下行时是最危险的负债</b>——这个行业最大的几次失败，几乎都源于此。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 32 · 章扉 Ⅵ 节奏与路径 ═══════════════ -->
+<section class="slide s-dark chapter">
+    <div class="frame"></div>
+    <div class="wrap" style="flex-direction:row;align-items:center;gap:110px;">
+        <div class="chapnum reveal">VI</div>
+        <div>
+            <h2 class="headline reveal">节奏与路径</h2>
+            <p class="sub reveal">我们按什么节奏走，要走到哪里去</p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 33 · 品牌成熟度管理 ═══════════════ -->
+<section class="slide s-dark">
+    <div class="wrap">
+        <div class="kicker reveal">品牌成熟度管理</div>
+        <h2 class="headline reveal">我们对品牌质量有纪律</h2>
+        <div class="rule reveal"></div>
+        <div class="reveal" style="display:flex;align-items:center;gap:34px;margin-bottom:64px;">
+            <div style="border:1.5px solid var(--line);padding:34px 44px;font-family:var(--serif);font-weight:900;font-size:36px;">产品定型</div>
+            <span style="color:var(--orange);font-size:40px;">→</span>
+            <div style="border:1.5px solid var(--line);padding:34px 44px;font-family:var(--serif);font-weight:900;font-size:36px;">样板验证</div>
+            <span style="color:var(--orange);font-size:40px;">→</span>
+            <div style="border:1.5px solid var(--line);padding:34px 44px;font-family:var(--serif);font-weight:900;font-size:36px;">模型复制</div>
+            <span style="color:var(--orange);font-size:40px;">→</span>
+            <div style="border:2px solid var(--orange);padding:34px 44px;font-family:var(--serif);font-weight:900;font-size:36px;color:var(--orange);">规模开放</div>
+        </div>
+        <p class="support reveal">每一个品牌达到成熟度标准，才进入规模化复制阶段。<br><b>我们不会为了收取合作费而滥开门店。</b>这个行业有太多公司死在"品牌数量跑在验证前面"，<span class="hl">我们不走那条路。</span></p>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 34 · 三级火箭 ═══════════════ -->
+<section class="slide s-dark">
+    <div class="wrap">
+        <div class="kicker reveal">我们的战略路径</div>
+        <div class="cols reveal" style="margin-top:16px;">
+            <div class="card">
+                <span class="no">第一级 · 验证期</span>
+                <h3>把单店模型跑实</h3>
+                <p>把产品标准、成本模型、运营体系<b>全部固化下来</b>。</p>
+            </div>
+            <div class="card">
+                <span class="no">第二级 · 扩张期</span>
+                <h3>把规模铺开</h3>
+                <p>品牌矩阵全面铺开，与大型资产持有方形成战略合作，<b>管理输出成为一条独立的收入曲线</b>。</p>
+            </div>
+            <div class="card accent">
+                <span class="no">第三级 · 价值实现期</span>
+                <h3>系统本身成为资产</h3>
+                <p>不再需要外部输血，反过来向股东分配。<b>品牌与运营系统本身，成为可以被定价的资产。</b></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 35 · 我们要成为什么 ═══════════════ -->
+<section class="slide s-dark">
+    <div class="wrap">
+        <div class="kicker reveal">我们要成为什么</div>
+        <h2 class="headline reveal">从一家酒店公司，<br>到一个<span class="hl">科技资产运营平台</span></h2>
+        <div class="rule reveal"></div>
+        <div class="cols reveal">
+            <div class="card">
+                <span class="no">做</span>
+                <h3>管理输出</h3>
+                <p>向资产持有方输出完整的产品标准、改造方案、运营体系与渠道能力。<br><b>它能成立的前提：我们的运营能力已经是一套系统，而不是一支团队。</b></p>
+            </div>
+            <div class="card">
+                <span class="no">做</span>
+                <h3>资产换股权</h3>
+                <p>对方出物业，我们出改造与运营，以股权形式共享资产增值。<br><b>把运营能力变成资产上的权益。</b></p>
+            </div>
+            <div class="card dashed">
+                <span class="no" style="color:var(--cream-faint);">不做</span>
+                <h3 style="color:var(--cream-dim);">包租</h3>
+                <p>那条路看起来快，<br>但它是用负债换规模。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ 屏 36 · 收束 ═══════════════ -->
+<section class="slide s-dark">
+    <div class="wrap center">
+        <div class="latin reveal" style="margin-bottom:70px;">TRUEDING GROUP</div>
+        <h1 class="reveal" style="font-family:var(--serif);font-weight:900;font-size:220px;letter-spacing:0.06em;">我们<span style="color:var(--orange);">一起</span></h1>
+        <div class="rule reveal"></div>
+        <p class="support reveal" style="font-size:30px;">和我们的客人一起 · 和我们的合作方一起 · 和把资产交给我们的人一起</p>
+    </div>
+</section>
+
+<!-- ═══════════════ 附屏 · 数据与口径说明 ═══════════════ -->
+<section class="slide s-light">
+    <div class="wrap">
+        <div class="kicker reveal">数据与口径说明</div>
+        <div class="reveal" style="max-width:1420px;">
+            <p class="support" style="font-size:29px;line-height:2.15;">
+                本材料所载经营数据除注明外，均为集团自有统计口径。<br>
+                用户调研数据来自集团自有问卷调研，非第三方机构调研。<br>
+                涉及投资与回收周期的表述，均为基于既有门店数据的模型测算，<br>
+                用于说明选址标准与判断方法，<b>不构成任何形式的收益承诺或投资建议</b>。<br>
+                实际投资额与经营结果，以项目实勘测算及实际经营为准。<br>
+                <b>投资有风险，合作需谨慎。</b>
+            </p>
+        </div>
+        <div class="reveal" style="margin-top:80px;">
+            <span class="latin">TRUEDING GROUP · 叮住集团 · 2026</span>
+        </div>
+    </div>
+</section>
+
+</main>
+</div>
+
+<!-- 放映台外的界面 -->
+<div id="progress"></div>
+<div id="counter">01 / 37</div>
+<div id="hint">← → 或空格翻页 · E 编辑 · Ctrl+P 导出 PDF</div>
+<div class="edit-hotzone" id="editHotzone"></div>
+<button class="edit-toggle" id="editToggle" title="编辑模式（E）">✎</button>
+
+<script>
+/* ============================================================
+   SLIDE PRESENTATION CONTROLLER
+   键盘（←→/空格/PgUp/PgDn/Home/End）· 滚轮 · 触摸滑动
+   固定 1920×1080 舞台整体缩放，绝不重排
+   ============================================================ */
+class SlidePresentation {
+    constructor() {
+        this.stage = document.getElementById('deckStage');
+        this.restoreEdits();                       // 先还原本地编辑，再取 slides
+        this.slides = Array.from(this.stage.querySelectorAll('.slide'));
+        this.current = 0;
+        this.wheelLock = 0;
+        this.setupStageScale();
+        this.setupKeyboard();
+        this.setupWheel();
+        this.setupTouch();
+        this.show(0);
+        setTimeout(() => { document.getElementById('hint').style.opacity = '0'; }, 6000);
+    }
+
+    /* 整舞台等比缩放 + 居中（letterbox） */
+    setupStageScale() {
+        const scale = () => {
+            const f = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+            const x = (window.innerWidth - 1920 * f) / 2;
+            const y = (window.innerHeight - 1080 * f) / 2;
+            this.stage.style.transform = `translate(${x}px, ${y}px) scale(${f})`;
+        };
+        scale();
+        window.addEventListener('resize', scale);
+    }
+
+    setupKeyboard() {
+        document.addEventListener('keydown', (e) => {
+            if (e.target.isContentEditable) return;              // 编辑中不翻页
+            if (e.metaKey || e.ctrlKey || e.altKey) return;
+            switch (e.key) {
+                case 'ArrowRight': case 'ArrowDown': case ' ': case 'PageDown':
+                    e.preventDefault(); this.show(this.current + 1); break;
+                case 'ArrowLeft': case 'ArrowUp': case 'PageUp':
+                    e.preventDefault(); this.show(this.current - 1); break;
+                case 'Home': e.preventDefault(); this.show(0); break;
+                case 'End':  e.preventDefault(); this.show(this.slides.length - 1); break;
+            }
+        });
+    }
+
+    setupWheel() {
+        window.addEventListener('wheel', (e) => {
+            if (document.body.classList.contains('editing')) return;
+            const now = Date.now();
+            if (now - this.wheelLock < 900 || Math.abs(e.deltaY) < 24) return;
+            this.wheelLock = now;
+            this.show(this.current + (e.deltaY > 0 ? 1 : -1));
+        }, { passive: true });
+    }
+
+    setupTouch() {
+        let sx = 0, sy = 0;
+        window.addEventListener('touchstart', (e) => {
+            sx = e.touches[0].clientX; sy = e.touches[0].clientY;
+        }, { passive: true });
+        window.addEventListener('touchend', (e) => {
+            const dx = e.changedTouches[0].clientX - sx;
+            const dy = e.changedTouches[0].clientY - sy;
+            if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)) {
+                this.show(this.current + (dx < 0 ? 1 : -1));
+            }
+        }, { passive: true });
+    }
+
+    show(i) {
+        this.current = Math.max(0, Math.min(i, this.slides.length - 1));
+        this.slides.forEach((s, k) => {
+            s.classList.toggle('active', k === this.current);
+            s.classList.toggle('visible', k === this.current);
+        });
+        const n = String(this.current + 1).padStart(2, '0');
+        document.getElementById('counter').textContent = `${n} / ${this.slides.length}`;
+        document.getElementById('progress').style.width =
+            (this.slides.length > 1 ? (this.current / (this.slides.length - 1)) * 100 : 100) + '%';
+    }
+
+    /* ---------- 本地编辑还原 ---------- */
+    restoreEdits() {
+        try {
+            const saved = localStorage.getItem('trueding-deck-v1');
+            if (saved) this.stage.innerHTML = saved;
+        } catch (e) { /* 隐私模式等场景静默跳过 */ }
+    }
+}
+
+/* ============================================================
+   INLINE EDITOR — 左上角热区 / E 键进入；改动自动存 localStorage；
+   Ctrl+S 下载当前版本 HTML
+   ============================================================ */
+class InlineEditor {
+    constructor(deck) {
+        this.deck = deck;
+        this.isActive = false;
+        this.toggleBtn = document.getElementById('editToggle');
+        this.hotzone = document.getElementById('editHotzone');
+        this.hideTimer = null;
+        this.bind();
+    }
+
+    editables() {
+        return this.deck.stage.querySelectorAll('h1, h2, h3, p, td, th, li, .kicker, .latin, .pill, .pull, .no, span');
+    }
+
+    toggle() {
+        this.isActive = !this.isActive;
+        document.body.classList.toggle('editing', this.isActive);
+        this.toggleBtn.classList.toggle('active', this.isActive);
+        this.editables().forEach(el => {
+            if (this.isActive) el.setAttribute('contenteditable', 'true');
+            else el.removeAttribute('contenteditable');
+        });
+        if (!this.isActive) this.save();
+    }
+
+    save() {
+        try { localStorage.setItem('trueding-deck-v1', this.deck.stage.innerHTML); } catch (e) {}
+    }
+
+    download() {
+        const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+        const blob = new Blob([html], { type: 'text/html' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = '叮住集团品牌手册（宣讲版）.html';
+        a.click();
+        URL.revokeObjectURL(a.href);
+    }
+
+    bind() {
+        this.toggleBtn.addEventListener('click', () => this.toggle());
+        this.hotzone.addEventListener('click', () => this.toggle());
+
+        /* 热区悬停显隐（JS + 400ms 宽限，勿改为 CSS ~ 方案） */
+        const show = () => { clearTimeout(this.hideTimer); this.toggleBtn.classList.add('show'); };
+        const hideSoon = () => {
+            this.hideTimer = setTimeout(() => {
+                if (!this.isActive) this.toggleBtn.classList.remove('show');
+            }, 400);
+        };
+        this.hotzone.addEventListener('mouseenter', show);
+        this.hotzone.addEventListener('mouseleave', hideSoon);
+        this.toggleBtn.addEventListener('mouseenter', show);
+        this.toggleBtn.addEventListener('mouseleave', hideSoon);
+
+        /* E 进入/退出编辑；Ctrl+S 下载 */
+        document.addEventListener('keydown', (e) => {
+            if ((e.key === 'e' || e.key === 'E') && !e.target.isContentEditable
+                && !e.metaKey && !e.ctrlKey && !e.altKey) this.toggle();
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault(); this.save(); this.download();
+            }
+        });
+
+        /* 编辑即自动保存 */
+        this.deck.stage.addEventListener('input', () => { if (this.isActive) this.save(); });
+    }
+}
+
+const deck = new SlidePresentation();
+new InlineEditor(deck);
+</script>
+</body>
+</html>
