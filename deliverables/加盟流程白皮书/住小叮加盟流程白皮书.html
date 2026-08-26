@@ -573,8 +573,9 @@ body.editing .slide [contenteditable="true"]{ outline:2px dashed rgba(238,120,30
             <p data-ed>统一开业准入条件与运营规范，确保加盟项目标准化复制与落地，实现品牌形象统一、服务质量一致，为双方长期共赢奠定坚实基础。</p>
         </div>
     </div>
-    <div class="banner info reveal" style="bottom:96px; justify-content:center;">
-        <div class="b-body" style="text-align:center; font-weight:700;" data-ed>★ 所有加盟项目均须严格遵照本流程执行，确保品牌标准化运营与稳健发展</div>
+    <div class="banner info reveal" style="bottom:96px;">
+        <div class="b-ico"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2z" fill="#fff"/></svg></div>
+        <div class="b-body" data-ed>所有加盟项目均须严格遵照本流程执行，确保品牌标准化运营与稳健发展</div>
     </div>
     <div class="pagenum">02 / 15</div>
 </section>
@@ -940,8 +941,8 @@ body.editing .slide [contenteditable="true"]{ outline:2px dashed rgba(238,120,30
 <!-- ============ S13 总结 ============ -->
 <section class="slide" aria-label="总结">
     <div class="bg-decor"></div><div class="watermark">ZHUXIAODING</div>
-    <div class="crumb" data-ed>总结</div>
-    <div class="title-wrap"><div class="slide-title reveal" data-ed>总结：规范流程，<span class="hl">合作共赢</span></div></div>
+    <div class="crumb" style="font-size:40px;" data-ed>总结</div>
+    <div class="title-wrap"><div class="slide-title reveal" data-ed>规范流程，<span class="hl">合作共赢</span></div></div>
     <div class="cards stagger" style="top:298px; grid-template-columns:repeat(3,1fr);">
         <div class="card">
             <h3 data-ed><span style="color:var(--brand)">标准化</span>流程体系</h3>
@@ -957,7 +958,8 @@ body.editing .slide [contenteditable="true"]{ outline:2px dashed rgba(238,120,30
         </div>
     </div>
     <div class="quote reveal" style="bottom:118px;" data-ed>
-        <span>“规范是合作的基石，信任是共赢的桥梁。我们将以专业的标准、严谨的态度，与您携手同行，共同开启商业新篇章，实现品牌与合作伙伴的共同成长。”</span>
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" style="flex:0 0 auto;"><path d="M10 7H6a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v2a2 2 0 0 1-2 2" stroke="var(--brand)" stroke-width="2" stroke-linecap="round"/><path d="M20 7h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v2a2 2 0 0 1-2 2" stroke="var(--brand)" stroke-width="2" stroke-linecap="round"/></svg>
+        <span>规范是合作的基石，信任是共赢的桥梁。我们将以专业的标准、严谨的态度，与您携手同行，共同开启商业新篇章，实现品牌与合作伙伴的共同成长。</span>
     </div>
     <div class="pagenum">13 / 15</div>
 </section>
@@ -979,7 +981,7 @@ body.editing .slide [contenteditable="true"]{ outline:2px dashed rgba(238,120,30
         <div class="att-row">
             <div class="att-tag">附件 2</div>
             <div class="att-info">
-                <h3 data-ed>住小叮（&emsp;&emsp;）竣工验收表</h3>
+                <h3 data-ed>住小叮竣工验收表</h3>
                 <p data-ed>验收标准原件 · 共 15 页 · 红线项/普通项判定，涵盖装饰、大堂、公卫、客房、消防、给排水、暖通、新风全项检查标准</p>
             </div>
             <button class="att-open" data-viewer="a2">查看原件</button>
@@ -1166,7 +1168,7 @@ class SlidePresentation {
 const viewerEl = document.getElementById('viewer');
 const segTitles = {
     a1: '附件1 · 装修设计技术咨询合同（原件影印）',
-    a2: '附件2 · 住小叮（　）竣工验收表（原件影印）',
+    a2: '附件2 · 住小叮竣工验收表（原件影印）',
     a3: '附件3 · 住小叮酒店筹建物资——配备清单（原件影印）',
     a4: '总包施工单位项目经理标准化岗前培训流程（原件影印）'
 };
